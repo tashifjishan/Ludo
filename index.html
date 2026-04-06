@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            --yellow: rgb(255, 242, 0);
+            --blue: rgb(2, 2, 123);
+        }
+
+        .container {
+            width: 700px;
+            height: 700px;
+            background-color: white;
+        }
+
+        body {
+            background-color: aliceblue;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        /* First row */
+
+        .firstRow {
+            display: flex;
+            height: 40%;
+
+        }
+
+        .firstRow>.blue {
+            background-color: var(--blue);
+            height: 100%;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .firstRow>.blue>div,
+        .firstRow>.yellow>div {
+            width: 80%;
+            height: 80%;
+            background-color: white;
+            border-radius: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 50px;
+        }
+
+        .firstRow>.blue>div>div {
+            background-color: var(--blue);
+            border-radius: 100%;
+        }
+
+        .firstRow>.yellow>div>div {
+            background-color: var(--yellow);
+            border-radius: 100%;
+        }
+
+        .firstRow>.yellow {
+            background-color: var(--yellow);
+            height: 100%;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .firstRow>.middle {
+            width: 20%;
+
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+
+        }
+
+
+        .middle>div {
+            border: 1px solid rgb(158, 158, 158);
+        }
+
+        /* Second Row */
+        .secondRow {
+            height: 20%;
+            display: flex;
+        }
+
+        .secondRow>.left,
+        .secondRow>.right {
+            width: 40%;
+            height: 100%;
+            display: grid;
+
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .left>div,
+        .right>div {
+            border: 1px solid rgb(158, 158, 158);
+        }
+
+        .home {
+            width: 20%;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="firstRow">
+            <div class="blue">
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+
+            <div class="middle">
+
+                <div></div>
+                <div></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div style="background-color: var(--yellow); "></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow);"></div>
+                <div></div>
+            </div>
+
+
+            <div class="yellow">
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="secondRow">
+
+
+            <div class="left">
+                <div></div>
+                <div></div>
+                <div></div>
+
+                <div></div>
+                <div "></div>
+                <div ></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+            </div>
+
+
+            <div class=" home">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+
+                <div class=" right">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+
+                    <div></div>
+                    <div "></div>
+                <div ></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+
+                <div></div>
+                <div ></div>
+                <div></div>
+            </div>
+
+
+            </div>
+
+             <div class="firstRow">
+            <div class="blue">
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+
+            <div class="middle">
+
+                <div></div>
+                <div></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div style="background-color: var(--yellow); "></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow); "></div>
+                <div></div>
+
+                <div></div>
+                <div style="background-color: var(--yellow);"></div>
+                <div></div>
+            </div>
+
+
+            <div class="yellow">
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+</body>
+
+</html>
