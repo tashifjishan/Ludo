@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
     <style>
       * {
@@ -170,48 +171,42 @@
         /* color: white; */
       }
 
-      .dice{
+      .dice {
         width: 700px;
         margin: 10px;
       }
-      .dice>button{
+      .dice > button {
         background-color: orange;
         color: white;
         padding: 12px 24px;
         border: none;
       }
 
-
-
-         div[token="red"]{
-         outline: 10px dashed black;
-         animation-name: rotateToken;
-         animation-duration: 1s;
-         animation-iteration-count: infinite;
-         animation-timing-function: ease-in-out;
-         animation-direction: alternate;
+      div[tokenColor="red"].glowToken {
+        outline: 10px dashed black;
+        animation-name: rotateToken;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
       }
 
-    
-
       @keyframes rotateToken {
-        0%{
-            transform:  scale(1);
-            
+        0% {
+          transform: scale(1);
         }
-        100%{
-            transform: rotate(350deg) scale(1.2);
+        100% {
+          transform: rotate(350deg) scale(1.2);
         }
       }
 
       @keyframes glow {
-        0%{
-            filter: brightness(100%);
+        0% {
+          filter: brightness(100%);
         }
-        100%{
-            filter: brightness(80%);
+        100% {
+          filter: brightness(80%);
         }
-        
       }
     </style>
   </head>
@@ -229,29 +224,29 @@
         </div>
 
         <div class="middle">
-          <div>23</div>
-          <div>24</div>
-          <div>25</div>
+          <div cellNo="23">23</div>
+          <div cellNo="24">24</div>
+          <div cellNo="25">25</div>
 
-          <div>22</div>
+          <div cellNo="22">22</div>
           <div style="background-color: var(--yellow)"></div>
-          <div style="background-color: var(--yellow)">26</div>
+          <div style="background-color: var(--yellow)" cellNo="26">26</div>
 
-          <div>21</div>
+          <div cellNo="21">21</div>
           <div style="background-color: var(--yellow)"></div>
-          <div>27</div>
+          <div cellNo="27">27</div>
 
-          <div>20</div>
+          <div cellNo="20">20</div>
           <div style="background-color: var(--yellow)"></div>
-          <div>28</div>
+          <div cellNo="28">28</div>
 
-          <div>19</div>
+          <div cellNo="19">19</div>
           <div style="background-color: var(--yellow)"></div>
-          <div>29</div>
+          <div cellNo="29">29</div>
 
-          <div>18</div>
+          <div cellNo="18">18</div>
           <div style="background-color: var(--yellow)"></div>
-          <div>30</div>
+          <div cellNo="30">30</div>
         </div>
 
         <div class="yellow">
@@ -266,15 +261,15 @@
 
       <div class="secondRow">
         <div class="left">
-          <div>12</div>
-          <div style="background-color: var(--blue)">13</div>
-          <div>14</div>
+          <div cellNo="12">12</div>
+          <div style="background-color: var(--blue)" cellNo="13">13</div>
+          <div cellNo="14">14</div>
 
-          <div>15</div>
-          <div>16</div>
-          <div>17</div>
+          <div cellNo="15">15</div>
+          <div cellNo="16">16</div>
+          <div cellNo="17">17</div>
 
-          <div>11</div>
+          <div cellNo="11">11</div>
           <div style="background-color: var(--blue)"></div>
           <div style="background-color: var(--blue)"></div>
 
@@ -282,13 +277,13 @@
           <div style="background-color: var(--blue)"></div>
           <div style="background-color: var(--blue)"></div>
 
-          <div>10</div>
-          <div>9</div>
-          <div>8</div>
+          <div cellNo="10">10</div>
+          <div cellNo="9">9</div>
+          <div cellNo="8" style="color: orange; font-size: 30px;"><i class="fa-solid fa-star"></i> </div>
 
-          <div>7</div>
-          <div>6</div>
-          <div>5</div>
+          <div cellNo="7">7</div>
+          <div cellNo="6">6</div>
+          <div cellNo="5">5</div>
         </div>
 
         <div
@@ -302,29 +297,29 @@
         ></div>
 
         <div class="right">
-          <div>31</div>
-          <div>32</div>
-          <div>33</div>
+          <div cellNo="31">31</div>
+          <div cellNo="32">32</div>
+          <div cellNo="33">33</div>
 
-          <div>34</div>
-          <div>35</div>
-          <div>36</div>
-
-          <div style="background-color: var(--green)"></div>
-          <div style="background-color: var(--green)"></div>
-          <div style="background-color: var(--green)"></div>
+          <div cellNo="34">34</div>
+          <div cellNo="35">35</div>
+          <div cellNo="36">36</div>
 
           <div style="background-color: var(--green)"></div>
           <div style="background-color: var(--green)"></div>
-          <div>37</div>
+          <div style="background-color: var(--green)"></div>
 
-          <div>43</div>
-          <div>42</div>
+          <div style="background-color: var(--green)"></div>
+          <div style="background-color: var(--green)"></div>
+          <div cellNo="37">37</div>
+
+          <div cellNo="43">43</div>
+          <div cellNo="42">42</div>
           <div cellNo="41">41</div>
 
           <div cellNo="40">40</div>
-          <div style="background-color: var(--green)">39</div>
-          <div>38</div>
+          <div style="background-color: var(--green)" cellNo="39">39</div>
+          <div cellNo="38">38</div>
         </div>
       </div>
 
@@ -339,29 +334,29 @@
         </div>
 
         <div class="middle">
-          <div>4</div>
+          <div cellNo="4">4</div>
           <div style="background-color: var(--red)"></div>
-          <div>44</div>
+          <div cellNo="44">44</div>
 
-          <div>3</div>
+          <div cellNo="3">3</div>
           <div style="background-color: var(--red)"></div>
-          <div>45</div>
+          <div cellNo="45">45</div>
 
-          <div>2</div>
+          <div cellNo="2">2</div>
           <div style="background-color: var(--red)"></div>
-          <div>46</div>
+          <div cellNo="46">46</div>
 
-          <div>1</div>
+          <div cellNo="1">1</div>
           <div style="background-color: var(--red)"></div>
-          <div>47</div>
+          <div cellNo="47">47</div>
 
-          <div style="background-color: var(--red)">52</div>
+          <div style="background-color: var(--red)" cellNo="52">52</div>
           <div style="background-color: var(--red)"></div>
-          <div>48</div>
+          <div cellNo="48">48</div>
 
-          <div>51</div>
-          <div>50</div>
-          <div>49</div>
+          <div cellNo="51">51</div>
+          <div cellNo="50">50</div>
+          <div cellNo="49">49</div>
         </div>
 
         <div class="green">
@@ -375,166 +370,281 @@
       </div>
     </div>
 
-
-    <div class="dice" style="display: flex; gap: 20px; align-items: center; font-family: monospace; font-size: 40px;">
-        <button id="diceBtn">Roll</button>
-        <p id="diceResult">6</p>
+    <div
+      class="dice"
+      style="
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        font-family: monospace;
+        font-size: 40px;
+      "
+    >
+      <button id="diceBtn">Roll</button>
+      <p id="diceResult">6</p>
     </div>
 
     <script>
+      /////// Current Player //////////////////////
+      const record = { red: {}, blue: {}, green: [], yellow: {} };
+      let currentPlayer = "red";
 
+      ////////////////////////////////////////////
 
-/////// Current Player //////////////////////
-const record = {"red": {}, "blue": {}, "green": [], "yellow": {}};
-const currentPlayer = "red";
+      const allDivs = Array.from(document.querySelectorAll(`div`));
 
-////////////////////////////////////////////
+      //    just to confirm that all divs have the cellNo attribute on them
+      //    console.log((allDivs.filter(div=>div.getAttribute("cellNo")).map(div=>div.getAttribute("cellNo")*1)).sort((a,b)=>a-b));
 
-// ################ Dice Roll and result
+      // ################ Dice Roll and result
 
-        const moving = [];
+      const moving = [];
+      let diceRandom = null;
+      const diceBtn = document.getElementById("diceBtn");
+      const diceResult = document.getElementById("diceResult");
 
-        const diceBtn = document.getElementById("diceBtn");
-        const diceResult = document.getElementById("diceResult");
+      diceBtn.addEventListener("click", function () {
+        diceRandom = Math.ceil(Math.random() * 6);
+        setTimeout(() => (diceResult.innerText = diceRandom), 200);
 
-        diceBtn.addEventListener("click", function(){
-            const result = Math.ceil(Math.random()*6);
-            setTimeout(()=>diceResult.innerText = result, 200);
-        })
+        if (diceRandom == 6) {
+          const tokens = Array.from(
+            document.querySelectorAll(`div[tokenColor="${currentPlayer}"]`),
+          ).filter((el) => !moving.includes(el));
+          tokens.forEach((token) => token.classList.add("glowToken"));
+        } else {
+          const allTokens = Array.from(
+            document.querySelector(`div[tokenColor="${currentPlayer}"]`),
+          );
+          if (!allTokens.some((token) => moving.includes(token))) {
+            if (currentPlayer == "red") currentPlayer = "green";
+            else if (currentPlayer == "green") currentPlayer = "yellow";
+            else if (currentPlayer == "yellow") currentPlayer = "blue";
+            else currentPlayer = "red";
 
+            console.log("Current Player: ", currentPlayer);
+          }
+        }
+      });
 
-// ######################################
+      // ######################################
 
+      function handleTokenTap(e) {
+        const token = e.target;
+        const tokenColor = e.target.getAttribute("tokenColor");
 
+        console.log(
+          currentPlayer == "red" &&
+            moving.includes(token) &&
+            diceRandom != null,
+        );
+        console.log("Movings array: ", moving);
 
+        if (!moving.includes(token) && diceRandom == 6) {
+          const playerStartingCell = {
+            red: "52",
+            yellow: "26",
+            green: "39",
+            blue: "13",
+          };
+          const spot = allDivs.find(
+            (div) =>
+              div.getAttribute("cellNo") == playerStartingCell[currentPlayer],
+          );
+          spot.append(token);
+          moving.push(token);
+          diceRandom == null;
 
+          const tokens = Array.from(
+            document.querySelectorAll(`div[tokenColor="${currentPlayer}"]`),
+          );
+          tokens.forEach((token) => token.classList.remove("glowToken"));
 
+          if (currentPlayer == "red") currentPlayer = "green";
+          else if (currentPlayer == "green") currentPlayer = "yellow";
+          else if (currentPlayer == "yellow") currentPlayer = "blue";
+          else currentPlayer = "red";
+        } else if (moving.includes(token) && diceRandom != null) {
+          // let counter = 0;
+          //   if currentCellNo is 50 then move to home line.......
+          let currentCellNo = token.parentElement.getAttribute("cellNo") * 1;
+          //   const initialRedCell = 52;
+          let toMoveTo = (currentCellNo + diceRandom) % 52;
+          const id = setInterval(() => {
+            currentCellNo = Math.max((currentCellNo + 1) % 52, 1);
+            const spot = allDivs.find(
+              (spot) => spot.getAttribute("cellNo") == currentCellNo,
+            );
+            spot.append(token);
 
+            if (currentCellNo == toMoveTo) {
+              console.log("quitting");
+              return clearInterval(id);
+            }
+          }, 200);
 
+          diceRandom = null;
+          if (currentPlayer == "red") currentPlayer = "green";
+          else if (currentPlayer == "green") currentPlayer = "yellow";
+          else if (currentPlayer == "yellow") currentPlayer = "blue";
+          else currentPlayer = "red";
+        }
+        diceRandom = null;
+        if (currentPlayer == "red") currentPlayer = "green";
+        else if (currentPlayer == "green") currentPlayer = "yellow";
+        else if (currentPlayer == "yellow") currentPlayer = "blue";
+        else currentPlayer = "red";
+      }
 
-//////////////////
+      //////////////////
 
+      //       const blueSpots = document.querySelectorAll(".blue>div>div");
+      //       blueSpots.forEach(
+      //         (spot) =>
+      //           (spot.innerHTML = `<div style="
+      //   background-color: var(--blue);
+      //   width: 35px;
+      //   height: 35px;
+      //   border-radius: 50%;
+      //   position: absolute;
+      //   border: 5px solid var(--blue);
+      //   box-shadow:
+      //     inset 2px 2px 5px rgba(0,0,0,0.5),
+      //     inset -2px -2px 5px rgba(255,255,255,0.3),
+      //     2px 2px 10px black;
+      // "></div>`),
+      //       );
 
+      //       const greenSpots = document.querySelectorAll(".green>div>div");
+      //       greenSpots.forEach(
+      //         (spot) =>
+      //           (spot.innerHTML = `<div style="
+      //   background-color: var(--green);
+      //   width: 35px;
+      //   height: 35px;
+      //   border-radius: 50%;
+      //   position: absolute;
+      //   border: 5px solid var(--green);
+      //   box-shadow:
+      //     inset 2px 2px 5px rgba(0,0,0,0.5),
+      //     inset -2px -2px 5px rgba(255,255,255,0.3),
+      //     2px 2px 10px black;
+      // "></div>`),
+      //       );
 
+      //       const redSpots = document.querySelectorAll(".red>div>div");
+      //       redSpots.forEach(
+      //         (spot) =>
+      //           (spot.innerHTML = `<div token="red" style="
+      //   background-color: var(--red);
+      //   width: 35px;
+      //   height: 35px;
+      //   border-radius: 50%;
+      //   position: absolute;
+      //   border: 5px solid var(--red);
+      //   box-shadow:
+      //     inset 2px 2px 5px rgba(0,0,0,0.5),
+      //     inset -2px -2px 5px rgba(255,255,255,0.3),
+      //     2px 2px 10px black;
+      // "></div>`),
+      //       );
 
-      const blueSpots = document.querySelectorAll(".blue>div>div");
-      blueSpots.forEach(
-        (spot) =>
-          (spot.innerHTML = `<div style="
-  background-color: var(--blue);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  position: absolute;
-  border: 5px solid var(--blue);
-  box-shadow:
-    inset 2px 2px 5px rgba(0,0,0,0.5),
-    inset -2px -2px 5px rgba(255,255,255,0.3),
-    2px 2px 10px black;
-"></div>`),
-      );
+      //       const yellowSpots = document.querySelectorAll(".yellow>div>div");
+      //       yellowSpots.forEach(
+      //         (spot) =>
+      //           (spot.innerHTML = `<div style="
+      //   background-color: var(--yellow);
+      //   width: 35px;
+      //   height: 35px;
+      //   border-radius: 50%;
+      //   position: absolute;
+      //   border: 5px solid var(--yellow);
+      //   box-shadow:
+      //     inset 2px 2px 5px rgba(0,0,0,0.5),
+      //     inset -2px -2px 5px rgba(255,255,255,0.3),
+      //     2px 2px 10px black;
+      // "></div>`),
+      //       );
 
-      const greenSpots = document.querySelectorAll(".green>div>div");
-      greenSpots.forEach(
-        (spot) =>
-          (spot.innerHTML = `<div style="
-  background-color: var(--green);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  position: absolute;
-  border: 5px solid var(--green);
-  box-shadow:
-    inset 2px 2px 5px rgba(0,0,0,0.5),
-    inset -2px -2px 5px rgba(255,255,255,0.3),
-    2px 2px 10px black;
-"></div>`),
-      );
+      ["red", "green", "blue", "yellow"].forEach((color) => {
+        console.log(color);
 
-      const redSpots = document.querySelectorAll(".red>div>div");
-      redSpots.forEach(
-        (spot) =>
-          (spot.innerHTML = `<div token="red" style="
-  background-color: var(--red);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  position: absolute;
-  border: 5px solid var(--red);
-  box-shadow:
-    inset 2px 2px 5px rgba(0,0,0,0.5),
-    inset -2px -2px 5px rgba(255,255,255,0.3),
-    2px 2px 10px black;
-"></div>`),
-      );
+        const currentColorSpots = document.querySelectorAll(
+          `.${color}>div>div`,
+        );
 
-      const yellowSpots = document.querySelectorAll(".yellow>div>div");
-      yellowSpots.forEach(
-        (spot) =>
-          (spot.innerHTML = `<div style="
-  background-color: var(--yellow);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  position: absolute;
-  border: 5px solid var(--yellow);
-  box-shadow:
-    inset 2px 2px 5px rgba(0,0,0,0.5),
-    inset -2px -2px 5px rgba(255,255,255,0.3),
-    2px 2px 10px black;
-"></div>`),
-      );
+        currentColorSpots.forEach((spot) => {
+          // return;
 
-      const allDivs = document.querySelectorAll(`div`);
-      const forty = Array.from(allDivs).find((div) => div.innerText == "39");
+          const div = document.createElement("div");
+          div.addEventListener("click", handleTokenTap);
+          div.setAttribute("tokenColor", color);
+          div.setAttribute(
+            "style",
+            `background-color: var(--${color});
+                                width: 35px;
+                                height: 35px;
+                                border-radius: 50%;
+                                position: absolute;
+                                border: 5px solid var(--${color});
+                                box-shadow:
+                                    inset 2px 2px 5px rgba(0,0,0,0.5),
+                                    inset -2px -2px 5px rgba(255,255,255,0.3),
+                                    2px 2px 10px black;`,
+          );
+          spot.append(div);
+        });
+      });
 
-      forty.innerHTML =
-        forty.innerHTML +
-        ` <div name="greenCoin" style="
-  background-color: var(--green);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  position: absolute;
-  border: 5px solid var(--green);
-  box-shadow:
-    inset 2px 2px 5px rgba(0,0,0,0.5),
-    inset -2px -2px 5px rgba(255,255,255,0.3),
-    2px 2px 10px black;
-"></div>`;
+      //       const forty = Array.from(allDivs).find((div) => div.innerText == "39");
 
-      let counter = 0;
-      let prev = forty;
-    //   const id = setInterval(() => {
-    //     const spot = Array.from(allDivs).find(
-    //       (spot) => spot.innerText == ( (1 + counter) % 52 == 0? 52 : (1 + counter) % 52),
-    //     );
+      //       forty.innerHTML =
+      //         forty.innerHTML +
+      //         ` <div name="greenCoin" style="
+      //   background-color: var(--green);
+      //   width: 35px;
+      //   height: 35px;
+      //   border-radius: 50%;
+      //   position: absolute;
+      //   border: 5px solid var(--green);
+      //   box-shadow:
+      //     inset 2px 2px 5px rgba(0,0,0,0.5),
+      //     inset -2px -2px 5px rgba(255,255,255,0.3),
+      //     2px 2px 10px black;
+      // "></div>`;
 
-    //     // console.log("Cell: ", Math.max((27 + counter) % 52, 52));
+      //       let counter = 0;
+      //       let prev = forty;
+      //   const id = setInterval(() => {
+      //     const spot = Array.from(allDivs).find(
+      //       (spot) => spot.innerText == ( (1 + counter) % 52 == 0? 52 : (1 + counter) % 52),
+      //     );
 
-    //     spot.innerHTML =
-    //       spot.innerHTML +
-    //       `<div name="greenCoin" style="
-    //     background-color: var(--green);
-    //     width: 35px;
-    //     height: 35px;
-    //     border-radius: 50%;
-    //     position: absolute;
-    //     border: 5px solid var(--green);
-    //     box-shadow:
-    //       inset 2px 2px 5px rgba(0,0,0,0.5),
-    //       inset -2px -2px 5px rgba(255,255,255,0.3),
-    //       2px 2px 10px black;
-    //   "></div>`;
+      //     // console.log("Cell: ", Math.max((27 + counter) % 52, 52));
 
-    // //   const audio = new Audio("./tokenMove.mp3");
-    // //   audio.play();
+      //     spot.innerHTML =
+      //       spot.innerHTML +
+      //       `<div name="greenCoin" style="
+      //     background-color: var(--green);
+      //     width: 35px;
+      //     height: 35px;
+      //     border-radius: 50%;
+      //     position: absolute;
+      //     border: 5px solid var(--green);
+      //     box-shadow:
+      //       inset 2px 2px 5px rgba(0,0,0,0.5),
+      //       inset -2px -2px 5px rgba(255,255,255,0.3),
+      //       2px 2px 10px black;
+      //   "></div>`;
 
-    //     prev.querySelector(`div[name="greenCoin"]`).remove();
-    //     prev = spot;
-    //     counter++;
-    //     if (counter == 50) return clearInterval(id);
-    //   }, 500);
+      // //   const audio = new Audio("./tokenMove.mp3");
+      // //   audio.play();
+
+      //     prev.querySelector(`div[name="greenCoin"]`).remove();
+      //     prev = spot;
+      //     counter++;
+      //     if (counter == 50) return clearInterval(id);
+      //   }, 500);
 
       //   console.log(Array.from(allDivs).filter((spot) => spot.innerText == "1"))
     </script>
