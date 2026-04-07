@@ -4,12 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
     <style>
-        * {
+        *{
             margin: 0;
             padding: 0;
             --red: #ec1c22;
@@ -17,19 +15,18 @@
             --green: #00a048;
             --blue: #22b0fd;
         }
-
-        body {
+        body{
             height: 100vh;
             background-color: aliceblue;
             display: flex;
             justify-content: center;
             align-items: center;
-
+            
         }
     </style>
     <style>
         .ludo {
-
+            
             display: grid;
             width: 700px;
             height: 700px;
@@ -75,14 +72,10 @@
                 innerDiv.setAttribute("style", "background-color: white; width: 60%; height: 60%; display: grid; grid-template-columns: 1fr 1fr; grid-template-columns: 1fr 1fr; padding: 20px; gap: 30px; justify-items: center; align-items: center");
                 div.append(innerDiv);
 
-                for (let i = 1; i <= 4; i++) {
+                for(let i=1; i<=4; i++){
                     const spotDiv = document.createElement("div");
-                    spotDiv.setAttribute("style", `background-color: var(--${color}); width: 50px; height: 50px; display:flex; justify-content:center; align-items:center `);
+                     spotDiv.setAttribute("style", `background-color: var(--${color}); width: 50px; height: 50px; `);
                     innerDiv.append(spotDiv);
-
-                    const token = document.createElement("div");
-                    token.setAttribute("style", `width: 40px; height: 40px; background: radial-gradient(circle at 30% 30%, #fff6, ${color} 60%, #0003); border: 2px solid #ff0f0; border-radius: 50%; box-shadow:  0 4px 6px rgba(0,0,0,0.4), inset 2px 2px 4px rgba(255,255,255,0.6), inset -3px -3px 6px rgba(0,0,0,0.5);`);
-                    spotDiv.append(token)
                 }
 
 
@@ -115,10 +108,10 @@
                 div.setAttribute("style", `color: orange; border: 1px dotted black; grid-area: c${i}; display: flex; justify-content: center; align-items: center; background-color: ${colorCell.hasOwnProperty(i) ? `var(--${colorCell[i]})` : "white"};`);
                 // div.innerText = i;
 
-                if (stopCells.includes(i)) {
+                if(stopCells.includes(i)){
                     div.innerHTML = `<i class="fa-regular fa-star"></i>`;
                 }
-
+                
 
                 ludo.append(div)
             }

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D Neon Cube</title>
+<style>
+  /* Body setup */
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at center, #0d0d0d, #010101);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: sans-serif;
+  }
+
+  /* Scene */
+  .scene {
+    width: 150px;
+    height: 150px;
+    perspective: 800px;
+  }
+
+  /* Cube */
+  .cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: spin 6s linear infinite;
+  }
+
+  /* Cube faces */
+  .face {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(0, 255, 255, 0.05);
+    border: 2px solid cyan;
+    border-radius: 8px;
+    box-shadow:
+      0 0 20px cyan,
+      inset 0 0 15px cyan;
+  }
+
+  /* Position each face in 3D */
+  .front  { transform: translateZ(75px); }
+  .back   { transform: rotateY(180deg) translateZ(75px); }
+  .right  { transform: rotateY(90deg) translateZ(75px); }
+  .left   { transform: rotateY(-90deg) translateZ(75px); }
+  .top    { transform: rotateX(90deg) translateZ(75px); }
+  .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+  /* Spin animation */
+  @keyframes spin {
+    0%   { transform: rotateX(0deg) rotateY(0deg); }
+    50%  { transform: rotateX(180deg) rotateY(180deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+  }
+
+  /* Glowing pulse */
+  .face::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    box-shadow: 0 0 30px cyan;
+    opacity: 0.5;
+    animation: pulse 2s infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { opacity: 0.3; }
+    to   { opacity: 1; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="scene">
+  <div class="cube">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face right"></div>
+    <div class="face left"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+  </div>
+</div>
+
+</body>
+</html>

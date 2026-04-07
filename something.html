@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card-scene {
+            width: 120px;
+            height: 160px;
+            perspective: 800px;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+
+        /* Flip on hover */
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            backface-visibility: hidden;
+
+            box-shadow:
+                0 6px 12px rgba(0, 0, 0, 0.4),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.5),
+                inset -3px -3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Front */
+        .front {
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+        }
+
+        /* Back */
+        .back {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-scene">
+        <div class="card">
+            <div class="card-face front">🎯</div>
+            <div class="card-face back">⭐</div>
+        </div>
+    </div>
+</body>
+
+</html>
