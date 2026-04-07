@@ -101,7 +101,7 @@
     <script>
       const cells = [];
       const tokens = [];
-      const tokenPos = {};
+      const tokenPos = new Map();
       const ludo = document.querySelector(".ludo");
 
       let currentPlayer = "red";
@@ -118,7 +118,7 @@
 
       let path = {
         blue: [
-          ...Array.from({ length: 51 }, (_, index) => ((index + 12) % 52) + 1),
+          ...Array.from({ length: 51 }, (_, index) => ((index + 51) % 52) + 1),
           ...Array.from({ length: 5 }, (_, index) => "b" + (index + 1)),
         ],
         green: [
@@ -155,7 +155,8 @@
             (token) => token.getAttribute("color") == currentPlayer,
           );
           const canMove = currentPlayersTokens.filter((el) => {
-            const pos = tokenPos[el];
+            const pos = tokenPos.get(el);
+            console.log(pos);
             if (diceResult == 6 && pos == null) return true;
             if (pos != null && pos + diceResult <= 56) return true;
           });
@@ -182,7 +183,7 @@
             (allPlayers.indexOf(currentPlayer) + 1) % allPlayers.length
           ];
 
-          console.log(currentPlayer+" ki bari hai ab");
+        console.log(currentPlayer + " ki bari hai ab");
       }
 
       function DrawLudo() {
@@ -226,7 +227,7 @@
             token.setAttribute("color", color);
             spotDiv.append(token);
             tokens.push(token);
-            tokenPos[token] = null;
+            tokenPos.set(token, null);
           }
         });
 
@@ -237,7 +238,7 @@
             // console.log(tokenPos[token]);
             // check if the currentPlayer has played and has not moved his token yet
 
-            const currentPos = tokenPos[token];
+            const currentPos = tokenPos.get(token);
             const color = token.getAttribute("color");
 
             if (
@@ -251,7 +252,8 @@
                     cell.getAttribute("cellNo") == path[currentPlayer][0],
                 )
                 .append(token);
-              tokenPos[token] = 0;
+              tokenPos.set(token, 0);
+              console.log("tokenPos", tokenPos);
               changeCurrentPlayer();
               canRollDice = true;
             } else if (
@@ -262,20 +264,33 @@
               let counter = currentPos;
               let toMoveTo = currentPos + diceResult;
               const id = setInterval(() => {
-                if (counter == toMoveTo) return clearInterval(id);
+                if (counter == toMoveTo) {
+                  clearInterval(id);
+                  changeCurrentPlayer();
+                  canRollDice = true;
+                }
                 counter++;
-                cells
-                  .find(
-                    (cell) =>
-                      cell.getAttribute("cellNo") ==
-                      path[currentPlayer][counter],
-                  )
-                  .append(token);
-                tokenPos[token] = counter;
+                const cell = cells.find(
+                  (cell) =>
+                    cell.getAttribute("cellNo") == path[currentPlayer][counter],
+                );
+                cell.append(token);
+                console.log(
+                  "moved to: ",
+                  cell,
+                  "currentPlayer cell to move: ",
+                  path[currentPlayer][counter],
+                  " but moved to ",
+                  cell.getAttribute("cellNo"),
+                );
+                tokenPos.set(token, counter);
               }, 1000);
 
-              changeCurrentPlayer();
-              canRollDice = true;
+              console.log(
+                currentPlayer + "is moving to: ",
+                path[currentPlayer][counter],
+                path[currentPlayer],
+              );
             }
           });
         });
