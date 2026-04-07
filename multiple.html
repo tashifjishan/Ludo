@@ -1,0 +1,57 @@
+   const colors = ["red", "green", "blue", "yellow"];
+            const totalTokens = 10;   // change this dynamically
+            const maxVisible = 4;
+
+            // target cell
+            const cell = cells[15];
+            cells[20].innerHTML = `<img width="" height="30px" src="./greenToken.png"> </img>`
+
+            // reset cell
+            cell.innerHTML = "";
+
+            // cell styling
+            cell.style.position = "relative";
+            cell.style.display = "flex";
+            cell.style.alignItems = "center";
+            cell.style.justifyContent = "center";
+
+            // create stacked tokens
+            for (let i = 0; i < Math.min(totalTokens, maxVisible); i++) {
+                const token = document.createElement("div");
+
+                token.style.width = "20px";
+                token.style.height = "20px";
+                token.style.borderRadius = "50%";
+                token.style.position = "absolute";
+
+                // overlap positioning
+                token.style.left = `${i * 6}px`;
+                
+                // token.style.top = `${i * 2}px`;
+                token.style.zIndex = i;
+
+                // style
+                token.style.background = `radial-gradient(circle at 30% 30%, #fff6, ${colors[i % colors.length]} 60%, #0003)`;
+                token.style.border = "2px solid #222";
+                token.style.boxShadow = "0 2px 4px rgba(0,0,0,0.4)";
+
+                cell.append(token);
+            }
+
+            // "+N" indicator
+            if (totalTokens > maxVisible) {
+                const more = document.createElement("div");
+
+                more.innerText = `+${totalTokens - maxVisible}`;
+                more.style.position = "absolute";
+                more.style.right = "2px";
+                more.style.bottom = "2px";
+                more.style.fontSize = "10px";
+                more.style.background = "#000a";
+                more.style.color = "#fff";
+                more.style.padding = "1px 4px";
+                more.style.borderRadius = "8px";
+                more.style.fontWeight = "bold";
+
+                cell.append(more);
+            }

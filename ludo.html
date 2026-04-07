@@ -1,247 +1,282 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Document</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            --red: #ec1c22;
-            --yellow: #fedf16;
-            --green: #00a048;
-            --blue: #22b0fd;
+      * {
+        margin: 0;
+        padding: 0;
+        --red: #ec1c22;
+        --yellow: #fedf16;
+        --green: #00a048;
+        --blue: #22b0fd;
 
-            --width: 700px;
-            --height: 700px;
-        }
+        --width: 700px;
+        --height: 700px;
+      }
 
-        body {
-            height: 100vh;
-            background-color: rgb(255, 166, 0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 50px;
-
-        }
+      body {
+        height: 100vh;
+        background-color: rgb(255, 166, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+      }
     </style>
     <style>
-        .ludo {
+      .ludo {
+        display: grid;
+        width: var(--width);
+        height: var(--height);
+        grid-template-columns: repeat(15, 1fr);
+        grid-template-rows: repeat(15, 1fr);
+        grid-template-areas:
+          "red  red  red  red  red  red  c23  c24  c25  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c22  g1   c26  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c21  g2   c27  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c20  g3   c28  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c19  g4   c29  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c18  g5   c30  grn  grn  grn  grn  grn  grn"
+          "c12  c13  c14  c15  c16  c17  h    h    h    c31  c32  c33  c34  c35  c36"
+          "c11  r1   r2   r3   r4   r5   h    h    h    y5   y4   y3   y2   y1   c37"
+          "c10  c9   c8   c7   c6   c5   h    h    h    c43  c42  c41  c40  c39  c38"
+          "blu  blu  blu  blu  blu  blu  c4   b5   c44  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c3   b4   c45  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c2   b3   c46  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c1   b2   c47  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c52  b1   c48  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c51  c50  c49  ylo  ylo  ylo  ylo  ylo  ylo";
+      }
 
-            display: grid;
-            width: var(--width);
-            height: var(--height);
-            grid-template-columns: repeat(15, 1fr);
-            grid-template-rows: repeat(15, 1fr);
-            grid-template-areas:
-                "red  red  red  red  red  red  c23  c24  c25  grn  grn  grn  grn  grn  grn"
-                "red  red  red  red  red  red  c22  g1   c26  grn  grn  grn  grn  grn  grn"
-                "red  red  red  red  red  red  c21  g2   c27  grn  grn  grn  grn  grn  grn"
-                "red  red  red  red  red  red  c20  g3   c28  grn  grn  grn  grn  grn  grn"
-                "red  red  red  red  red  red  c19  g4   c29  grn  grn  grn  grn  grn  grn"
-                "red  red  red  red  red  red  c18  g5   c30  grn  grn  grn  grn  grn  grn"
+      .cell:has(> :nth-child(2)) {
+        width: calc(var(--width) / 15);
+        width: calc(var(--height) / 15);
+        position: relative;
+        overflow: hidden;
+      }
 
-                "c12  c13  c14  c15  c16  c17  h    h    h    c31  c32  c33  c34  c35  c36"
-                "c11  r1   r2   r3   r4   r5   h    h    h    y5   y4   y3   y2   y1   c37"
-                "c10  c9   c8   c7   c6   c5   h    h    h    c43  c42  c41  c40  c39  c38"
+      .cell:has(> :nth-child(2)) div {
+        position: absolute;
+      }
 
-                "blu  blu  blu  blu  blu  blu  c4   b5   c44  ylo  ylo  ylo  ylo  ylo  ylo"
-                "blu  blu  blu  blu  blu  blu  c3   b4   c45  ylo  ylo  ylo  ylo  ylo  ylo"
-                "blu  blu  blu  blu  blu  blu  c2   b3   c46  ylo  ylo  ylo  ylo  ylo  ylo"
-                "blu  blu  blu  blu  blu  blu  c1   b2   c47  ylo  ylo  ylo  ylo  ylo  ylo"
-                "blu  blu  blu  blu  blu  blu  c52  b1   c48  ylo  ylo  ylo  ylo  ylo  ylo"
-                "blu  blu  blu  blu  blu  blu  c51  c50  c49  ylo  ylo  ylo  ylo  ylo  ylo";
+      /* @keyframes glow {
+        0% {
+          transform: scale(1);
+          filter: brightness(100%);
         }
-
-        .cell:has(>:nth-child(2)) {
-
-            width: calc(var(--width)/15);
-            width: calc(var(--height)/15);
-            position: relative;
-            overflow: hidden;
+        100% {
+          transform: scale(1.2);
+          filter: brightness(90%);
         }
+      }
 
-
-        .cell:has(>:nth-child(2)) div {
-            position: absolute;
-        }
+      div[color="red"]{
+        animation-name: glow;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-timing-function: ease-in-out;
+      } */
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="ludo"></div>
 
-
     <div id="dice">
-        <img width="40px" height="40px" src="./face1.png" alt="">
+      <img width="40px" height="40px" src="./face1.png" alt="" />
     </div>
 
     <script>
+      const cells = [];
+      const tokens = [];
+      const tokenPos = {};
+      const ludo = document.querySelector(".ludo");
 
-        ////////////////////////Roll Dice //////////////////////////////
+      let currentPlayer = "red";
+      let diceResult = null;
 
-        const dice = document.getElementById("dice");
-        dice.addEventListener("click", () => {
-            dice.querySelector("img").src = "./rolling_dice.gif";
-            const diceSound = new Audio("./dice.mp3");
-            diceSound.play();
-            setTimeout(() => {
-                const random = Math.ceil(Math.random() * 6);
-                dice.querySelector("img").src = `./face${random}.png`;
-            }, 300)
-        })
+      let canRollDice = true;
 
-        // //////////////////////////// All Cells ///////////////////////
+    const playersStartingPos = {
+            red: 13,
+            blue: 52,
+            green: 26,
+            yellow: 39,
+        };
 
-        const cells = [];
+    let path = {
+        "blue": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["blue"])%52+1), ...Array.from({length: 5}, (_, index)=>'b'+(index+1))],
+        "green": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["green"])%52+1), ...Array.from({length: 5}, (_, index)=>'g'+(index+1))],
+        "yellow": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["yellow"])%52+1), ...Array.from({length: 5}, (_, index)=>'y'+(index+1))],
+        "red": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["red"])%52+1), ...Array.from({length: 5}, (_, index)=>'r'+(index+1))],
+    }
 
-        const ludo = document.querySelector(".ludo");
-        function DrawLudo() {
-            // Draw Player Spots
+      console.log(path);
 
-            const colorToArea = { "red": "red", "blue": "blu", "green": "grn", "yellow": "ylo" };
-            ["blue", "green", "yellow", "red"].forEach(color => {
-                const div = document.createElement("div");
-                div.setAttribute("style", `background-color: var(--${color}); grid-area: ${colorToArea[color]}; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 10px 0 black`);
-                ludo.append(div);
+     
 
-                const innerDiv = document.createElement("div");
-                innerDiv.setAttribute("style", "background-color: white; width: 60%; height: 60%; display: grid; grid-template-columns: 1fr 1fr; grid-template-columns: 1fr 1fr; padding: 20px; gap: 30px; justify-items: center; align-items: center");
-                div.append(innerDiv);
+      ////////////////////////Roll Dice //////////////////////////////
 
-                for (let i = 1; i <= 4; i++) {
-                    const spotDiv = document.createElement("div");
-                    spotDiv.setAttribute("style", `background-color: var(--${color}); width: 50px; height: 50px; display:flex; justify-content:center; align-items:center `);
-                    innerDiv.append(spotDiv);
+      const dice = document.getElementById("dice");
+      dice.addEventListener("click", () => {
+        if (!canRollDice) return;
+        dice.querySelector("img").src = "./rolling_dice.gif";
+        const diceSound = new Audio("./dice.mp3");
+        diceSound.play();
+        setTimeout(() => {
+          diceResult = Math.ceil(Math.random() * 6);
+          dice.querySelector("img").src = `./face${diceResult}.png`;
 
-                    const token = document.createElement("div");
-                    // token.src = "./red.png";
-                    token.setAttribute("style", `width: 40px; height: 40px; background: radial-gradient(circle at 30% 30%, #fff6, ${color} 60%, #0003); border: 2px solid #ff0f0; border-radius: 50%; box-shadow:  0 4px 6px rgba(0,0,0,0.4), inset 2px 2px 4px rgba(255,255,255,0.6), inset -3px -3px 6px rgba(0,0,0,0.5);`);
-                    spotDiv.append(token)
-                }
+          canRollDice = false;
+        }, 300);
+      });
 
+      // //////////////////////////// All Cells ///////////////////////
 
+      function changeCurrentPlayer() {
+        const allPlayers = ["red", "green", "yellow", "blue"];
+        currentPlayer =
+          allPlayers[
+            (allPlayers.indexOf(currentPlayer) + 1) % allPlayers.length
+          ];
+      }
 
-            });
+      function DrawLudo() {
+        // Draw Player Spots
 
-            // populate homeCells
+        const colorToArea = {
+          red: "red",
+          blue: "blu",
+          green: "grn",
+          yellow: "ylo",
+        };
+        ["blue", "green", "yellow", "red"].forEach((color) => {
+          const div = document.createElement("div");
+          div.setAttribute(
+            "style",
+            `background-color: var(--${color}); grid-area: ${colorToArea[color]}; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 10px 0 black`,
+          );
+          ludo.append(div);
 
-            ["blue", "red", "yellow", "green"].forEach(el => {
-                for (let i = 1; i <= 5; i++) {
-                    const div = document.createElement("div");
-                    div.setAttribute("style", `background-color: var(--${el}); grid-area: ${el[0] + i}; border: 1px dashed white;`);
-                    ludo.append(div);
-                }
-            })
+          const innerDiv = document.createElement("div");
+          innerDiv.setAttribute(
+            "style",
+            "background-color: white; width: 60%; height: 60%; display: grid; grid-template-columns: 1fr 1fr; grid-template-columns: 1fr 1fr; padding: 20px; gap: 30px; justify-items: center; align-items: center",
+          );
+          div.append(innerDiv);
 
-            // Home
+          for (let i = 1; i <= 4; i++) {
+            const spotDiv = document.createElement("div");
+            spotDiv.setAttribute(
+              "style",
+              `background-color: var(--${color}); width: 50px; height: 50px; display:flex; justify-content:center; align-items:center `,
+            );
+            innerDiv.append(spotDiv);
 
+            const token = document.createElement("div");
+            // token.src = "./red.png";
+            token.setAttribute(
+              "style",
+              `width: 40px; height: 40px; background: ${color}; border: 2px solid #ff0f0; border-radius: 50%; border: 1px solid black; box-shadow: 0px 0px 10px 0px black`,
+            );
+            token.setAttribute("color", color);
+            spotDiv.append(token);
+            tokens.push(token);
+            tokenPos[token] = 0;
+          }
+        });
+
+        // add event listeners to tokens
+        tokens.forEach((token) => {
+          token.addEventListener("click", () => {
+            // check if there is any token of the current player that can be moved further keeping in account the current cell number it's in;
+            // console.log(tokenPos[token]);
+            // check if the currentPlayer has played and has not moved his token yet
+
+          
+
+            const currentPos = tokenPos[token];
+            const color = token.getAttribute("color");
+
+            if (color == currentPlayer && currentPos == 0 && diceResult == 6) {
+              cells[playersStartingPos[color] - 1].append(token);
+            }else if(color==currentPlayer && currentPos)
+
+            changeCurrentPlayer();
+            canRollDice = true;
+          });
+        });
+        console.log(tokens);
+
+        // populate homeCells
+
+        ["blue", "red", "yellow", "green"].forEach((el) => {
+          for (let i = 1; i <= 5; i++) {
             const div = document.createElement("div");
-            div.setAttribute("style", "grid-area: h; background-color: white; border: 1px dotted black; background-image: url('./Home.png'); background-size: 100% 100%");
-
+            div.setAttribute(
+              "style",
+              `background-color: var(--${el}); grid-area: ${el[0] + i}; border: 1px dashed white;`,
+            );
             ludo.append(div);
 
-            // cells
-            const stopCells = [8, 21, 34, 47];
+            cells.push(div);
+          }
+        });
 
-            const colorCell = { 52: "blue", 39: "yellow", 26: "green", 13: "red" }
-            for (let i = 1; i <= 52; i++) {
-                const div = document.createElement("div");
-                div.setAttribute("style", `color: orange; border: 1px dotted black; grid-area: c${i}; display: flex; justify-content: center; align-items: center; background-color: ${colorCell.hasOwnProperty(i) ? `var(--${colorCell[i]})` : "white"};`);
-                // div.innerText = i;
+        // Home
 
-                if (stopCells.includes(i)) {
-                    div.innerHTML = `<i class="fa-regular fa-star"></i>`;
-                }
+        const div = document.createElement("div");
+        div.setAttribute(
+          "style",
+          "grid-area: h; background-color: white; border: 1px dotted black; background-image: url('./Home.png'); background-size: 100% 100%",
+        );
 
+        ludo.append(div);
 
-                ludo.append(div)
-                cells.push(div);
+        // cells
+        const stopCells = [8, 21, 34, 47];
 
-                div.classList.add("cell")
-            }
+        const colorCell = { 52: "blue", 39: "yellow", 26: "green", 13: "red" };
+        for (let i = 1; i <= 52; i++) {
+          const div = document.createElement("div");
+          div.setAttribute(
+            "style",
+            `color: orange; border: 1px dotted black; grid-area: c${i}; display: flex; justify-content: center; align-items: center; background-color: ${colorCell.hasOwnProperty(i) ? `var(--${colorCell[i]})` : "white"};`,
+          );
+            // div.innerText = i;
 
-            const colors = ["red", "green", "blue", "yellow"];
-            const totalTokens = 10;   // change this dynamically
-            const maxVisible = 4;
+          if (stopCells.includes(i)) {
+            div.innerHTML = `<i class="fa-regular fa-star"></i>`;
+          }
 
-            // target cell
-            const cell = cells[15];
-            cells[20].innerHTML = `<img width="" height="30px" src="./greenToken.png"> </img>`
+          ludo.append(div);
+          cells.push(div);
 
-            // reset cell
-            cell.innerHTML = "";
-
-            // cell styling
-            cell.style.position = "relative";
-            cell.style.display = "flex";
-            cell.style.alignItems = "center";
-            cell.style.justifyContent = "center";
-
-            // create stacked tokens
-            for (let i = 0; i < Math.min(totalTokens, maxVisible); i++) {
-                const token = document.createElement("div");
-
-                token.style.width = "20px";
-                token.style.height = "20px";
-                token.style.borderRadius = "50%";
-                token.style.position = "absolute";
-
-                // overlap positioning
-                token.style.left = `${i * 6}px`;
-                
-                // token.style.top = `${i * 2}px`;
-                token.style.zIndex = i;
-
-                // style
-                token.style.background = `radial-gradient(circle at 30% 30%, #fff6, ${colors[i % colors.length]} 60%, #0003)`;
-                token.style.border = "2px solid #222";
-                token.style.boxShadow = "0 2px 4px rgba(0,0,0,0.4)";
-
-                cell.append(token);
-            }
-
-            // "+N" indicator
-            if (totalTokens > maxVisible) {
-                const more = document.createElement("div");
-
-                more.innerText = `+${totalTokens - maxVisible}`;
-                more.style.position = "absolute";
-                more.style.right = "2px";
-                more.style.bottom = "2px";
-                more.style.fontSize = "10px";
-                more.style.background = "#000a";
-                more.style.color = "#fff";
-                more.style.padding = "1px 4px";
-                more.style.borderRadius = "8px";
-                more.style.fontWeight = "bold";
-
-                cell.append(more);
-            }
-
-
-
-
-
-
+          div.classList.add("cell");
         }
+      }
 
-        DrawLudo();
+      DrawLudo();
 
-        console.log(cells);
+       console.log("red tokens: ", tokens.filter(token=>token.getAttribute("color")=="blue"));
 
+      console.log(cells);
 
+      // Rules:
 
-        // Rules:
-
-        /*
+      /*
         1. Player clicks on dice to play
         2. store the random number in a global variable
         a. if the dice result is 6 and there are tokens left in the players home make them glow
@@ -255,8 +290,6 @@
 
             => maintain a record of how many tokens have reached home for each player and the game continues until at least two players are playing
         */
-
     </script>
-</body>
-
+  </body>
 </html>
