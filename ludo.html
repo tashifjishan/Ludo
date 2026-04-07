@@ -253,6 +253,8 @@
                 )
                 .append(token);
               tokenPos.set(token, 0);
+              const tokenAudio = new Audio("./token.mp3");
+              tokenAudio.play();
               console.log("tokenPos", tokenPos);
               changeCurrentPlayer();
               canRollDice = true;
@@ -264,7 +266,7 @@
               let counter = currentPos;
               let toMoveTo = currentPos + diceResult;
               const id = setInterval(() => {
-                if (counter == toMoveTo) {
+                if (counter == toMoveTo-1) {
                   clearInterval(id);
                   changeCurrentPlayer();
                   canRollDice = true;
@@ -275,6 +277,8 @@
                     cell.getAttribute("cellNo") == path[currentPlayer][counter],
                 );
                 cell.append(token);
+                const tokenAudio = new Audio("./token.mp3");
+                tokenAudio.play();
                 console.log(
                   "moved to: ",
                   cell,
@@ -284,7 +288,7 @@
                   cell.getAttribute("cellNo"),
                 );
                 tokenPos.set(token, counter);
-              }, 1000);
+              }, 200);
 
               console.log(
                 currentPlayer + "is moving to: ",
