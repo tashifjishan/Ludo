@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            --red: #ec1c22;
+            --yellow: #fedf16;
+            --green: #00a048;
+            --blue: #22b0fd;
+        }
+        body{
+            height: 100vh;
+            background-color: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+    </style>
+    <style>
+        .ludo {
+            
+            display: grid;
+            width: 700px;
+            height: 700px;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(15, 1fr);
+            grid-template-areas:
+                "red  red  red  red  red  red  c23  c24  c25  grn  grn  grn  grn  grn  grn"
+                "red  red  red  red  red  red  c22  g1   c26  grn  grn  grn  grn  grn  grn"
+                "red  red  red  red  red  red  c21  g2   c27  grn  grn  grn  grn  grn  grn"
+                "red  red  red  red  red  red  c20  g3   c28  grn  grn  grn  grn  grn  grn"
+                "red  red  red  red  red  red  c19  g4   c29  grn  grn  grn  grn  grn  grn"
+                "red  red  red  red  red  red  c18  g5   c30  grn  grn  grn  grn  grn  grn"
+
+                "c12  c13  c14  c15  c16  c17  h    h    h    c31  c32  c33  c34  c35  c36"
+                "c11  r1   r2   r3   r4   r5   h    h    h    y5   y4   y3   y2   y1   c37"
+                "c10  c9   c8   c7   c6   c5   h    h    h    c43  c42  c41  c40  c39  c38"
+
+                "blu  blu  blu  blu  blu  blu  c4   b5   c44  ylo  ylo  ylo  ylo  ylo  ylo"
+                "blu  blu  blu  blu  blu  blu  c3   b4   c45  ylo  ylo  ylo  ylo  ylo  ylo"
+                "blu  blu  blu  blu  blu  blu  c2   b3   c46  ylo  ylo  ylo  ylo  ylo  ylo"
+                "blu  blu  blu  blu  blu  blu  c1   b2   c47  ylo  ylo  ylo  ylo  ylo  ylo"
+                "blu  blu  blu  blu  blu  blu  c52  b1   c48  ylo  ylo  ylo  ylo  ylo  ylo"
+                "blu  blu  blu  blu  blu  blu  c51  c50  c49  ylo  ylo  ylo  ylo  ylo  ylo";
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ludo"></div>
+
+    <script>
+        const ludo = document.querySelector(".ludo");
+        function DrawLudo() {
+            // Draw Player Spots
+
+            const colorToArea = { "red": "red", "blue": "blu", "green": "grn", "yellow": "ylo" };
+            ["blue", "green", "yellow", "red"].forEach(color => {
+                const div = document.createElement("div");
+                div.setAttribute("style", `background-color: var(--${color}); grid-area: ${colorToArea[color]}; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 10px 0 black`);
+                ludo.append(div);
+
+                const innerDiv = document.createElement("div");
+                innerDiv.setAttribute("style", "background-color: white; width: 60%; height: 60%; display: grid; grid-template-columns: 1fr 1fr; grid-template-columns: 1fr 1fr; padding: 20px; gap: 30px; justify-items: center; align-items: center");
+                div.append(innerDiv);
+
+                for(let i=1; i<=4; i++){
+                    const spotDiv = document.createElement("div");
+                     spotDiv.setAttribute("style", `background-color: var(--${color}); width: 50px; height: 50px; `);
+                    innerDiv.append(spotDiv);
+                }
+
+
+
+            });
+
+            // populate homeCells
+
+            ["blue", "red", "yellow", "green"].forEach(el => {
+                for (let i = 1; i <= 5; i++) {
+                    const div = document.createElement("div");
+                    div.setAttribute("style", `background-color: var(--${el}); grid-area: ${el[0] + i}; border: 1px dashed white;`);
+                    ludo.append(div);
+                }
+            })
+
+            // Home
+
+            const div = document.createElement("div");
+            div.setAttribute("style", "grid-area: h; background-color: white; border: 1px dotted black");
+
+            ludo.append(div);
+
+            // cells
+            const stopCells = [8, 21, 34, 47];
+
+            const colorCell = { 52: "blue", 39: "yellow", 26: "green", 13: "red" }
+            for (let i = 1; i <= 52; i++) {
+                const div = document.createElement("div");
+                div.setAttribute("style", `color: orange; border: 1px dotted black; grid-area: c${i}; display: flex; justify-content: center; align-items: center; background-color: ${colorCell.hasOwnProperty(i) ? `var(--${colorCell[i]})` : "white"};`);
+                // div.innerText = i;
+
+                if(stopCells.includes(i)){
+                    div.innerHTML = `<i class="fa-regular fa-star"></i>`;
+                }
+                
+
+                ludo.append(div)
+            }
+
+        }
+
+        DrawLudo();
+    </script>
+</body>
+
+</html>
