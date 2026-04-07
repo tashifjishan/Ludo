@@ -109,23 +109,33 @@
 
       let canRollDice = true;
 
-    const playersStartingPos = {
-            red: 13,
-            blue: 52,
-            green: 26,
-            yellow: 39,
-        };
+      const playersStartingPos = {
+        red: 13,
+        blue: 52,
+        green: 26,
+        yellow: 39,
+      };
 
-    let path = {
-        "blue": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["blue"])%52+1), ...Array.from({length: 5}, (_, index)=>'b'+(index+1))],
-        "green": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["green"])%52+1), ...Array.from({length: 5}, (_, index)=>'g'+(index+1))],
-        "yellow": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["yellow"])%52+1), ...Array.from({length: 5}, (_, index)=>'y'+(index+1))],
-        "red": [...Array.from({length: 50},(_, index)=>(index+playersStartingPos["red"])%52+1), ...Array.from({length: 5}, (_, index)=>'r'+(index+1))],
-    }
+      let path = {
+        blue: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 12) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "b" + (index + 1)),
+        ],
+        green: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 25) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "g" + (index + 1)),
+        ],
+        yellow: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 38) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "y" + (index + 1)),
+        ],
+        red: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 12) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "r" + (index + 1)),
+        ],
+      };
 
       console.log(path);
-
-     
 
       ////////////////////////Roll Dice //////////////////////////////
 
@@ -138,8 +148,28 @@
         setTimeout(() => {
           diceResult = Math.ceil(Math.random() * 6);
           dice.querySelector("img").src = `./face${diceResult}.png`;
+          // first decide if with the given result of the dice the current player proceed:
+          // 1. extract all tokens that are in the tokens array and find their position in the tokenPos object add the current result to the index and check if it equals to 55 or less than 55 if no cell satisfy the given condition then the player can't proceed
 
-          canRollDice = false;
+          const currentPlayersTokens = tokens.filter(
+            (token) => token.getAttribute("color") == currentPlayer,
+          );
+          const canMove = currentPlayersTokens.filter((el) => {
+            const pos = tokenPos[el];
+            if (diceResult == 6 && pos == null) return true;
+            if (pos != null && pos + diceResult <= 56) return true;
+          });
+
+          if (canMove.length == 0) {
+            canRollDice = true;
+            changeCurrentPlayer();
+          } else {
+            canRollDice = false;
+            console.log(currentPlayer + " beta khelo ");
+          }
+
+          console.log(canMove);
+          console.log(tokenPos);
         }, 300);
       });
 
@@ -151,6 +181,8 @@
           allPlayers[
             (allPlayers.indexOf(currentPlayer) + 1) % allPlayers.length
           ];
+
+          console.log(currentPlayer+" ki bari hai ab");
       }
 
       function DrawLudo() {
@@ -194,7 +226,7 @@
             token.setAttribute("color", color);
             spotDiv.append(token);
             tokens.push(token);
-            tokenPos[token] = 0;
+            tokenPos[token] = null;
           }
         });
 
@@ -205,17 +237,46 @@
             // console.log(tokenPos[token]);
             // check if the currentPlayer has played and has not moved his token yet
 
-          
-
             const currentPos = tokenPos[token];
             const color = token.getAttribute("color");
 
-            if (color == currentPlayer && currentPos == 0 && diceResult == 6) {
-              cells[playersStartingPos[color] - 1].append(token);
-            }else if(color==currentPlayer && currentPos)
+            if (
+              color == currentPlayer &&
+              currentPos == null &&
+              diceResult == 6
+            ) {
+              cells
+                .find(
+                  (cell) =>
+                    cell.getAttribute("cellNo") == path[currentPlayer][0],
+                )
+                .append(token);
+              tokenPos[token] = 0;
+              changeCurrentPlayer();
+              canRollDice = true;
+            } else if (
+              color == currentPlayer &&
+              currentPos != null &&
+              currentPos + diceResult <= 56
+            ) {
+              let counter = currentPos;
+              let toMoveTo = currentPos + diceResult;
+              const id = setInterval(() => {
+                if (counter == toMoveTo) return clearInterval(id);
+                counter++;
+                cells
+                  .find(
+                    (cell) =>
+                      cell.getAttribute("cellNo") ==
+                      path[currentPlayer][counter],
+                  )
+                  .append(token);
+                tokenPos[token] = counter;
+              }, 1000);
 
-            changeCurrentPlayer();
-            canRollDice = true;
+              changeCurrentPlayer();
+              canRollDice = true;
+            }
           });
         });
         console.log(tokens);
@@ -255,7 +316,9 @@
             "style",
             `color: orange; border: 1px dotted black; grid-area: c${i}; display: flex; justify-content: center; align-items: center; background-color: ${colorCell.hasOwnProperty(i) ? `var(--${colorCell[i]})` : "white"};`,
           );
-            // div.innerText = i;
+          div.innerText = i;
+
+          div.setAttribute("cellNo", i);
 
           if (stopCells.includes(i)) {
             div.innerHTML = `<i class="fa-regular fa-star"></i>`;
@@ -270,7 +333,10 @@
 
       DrawLudo();
 
-       console.log("red tokens: ", tokens.filter(token=>token.getAttribute("color")=="blue"));
+      console.log(
+        "red tokens: ",
+        tokens.filter((token) => token.getAttribute("color") == "blue"),
+      );
 
       console.log(cells);
 
