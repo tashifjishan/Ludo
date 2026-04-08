@@ -216,6 +216,8 @@
               "style",
               `background-color: var(--${color}); width: 50px; height: 50px; display:flex; justify-content:center; align-items:center `,
             );
+            spotDiv.setAttribute("cellNo", color[0] + "h" + i);
+            spotDiv.onclick = handleCellClick;
             innerDiv.append(spotDiv);
 
             const token = document.createElement("div");
@@ -227,77 +229,13 @@
             token.setAttribute("color", color);
             spotDiv.append(token);
             tokens.push(token);
+            cells.push(spotDiv);
             tokenPos.set(token, null);
           }
         });
 
         // add event listeners to tokens
-        tokens.forEach((token) => {
-          token.addEventListener("click", () => {
-            // check if there is any token of the current player that can be moved further keeping in account the current cell number it's in;
-            // console.log(tokenPos[token]);
-            // check if the currentPlayer has played and has not moved his token yet
-
-            const currentPos = tokenPos.get(token);
-            const color = token.getAttribute("color");
-
-            if (
-              color == currentPlayer &&
-              currentPos == null &&
-              diceResult == 6
-            ) {
-              cells
-                .find(
-                  (cell) =>
-                    cell.getAttribute("cellNo") == path[currentPlayer][0],
-                )
-                .append(token);
-              tokenPos.set(token, 0);
-              const tokenAudio = new Audio("./token.mp3");
-              tokenAudio.play();
-              console.log("tokenPos", tokenPos);
-              changeCurrentPlayer();
-              canRollDice = true;
-            } else if (
-              color == currentPlayer &&
-              currentPos != null &&
-              currentPos + diceResult <= 56
-            ) {
-              let counter = currentPos;
-              let toMoveTo = currentPos + diceResult;
-              const id = setInterval(() => {
-                if (counter == toMoveTo-1) {
-                  clearInterval(id);
-                  changeCurrentPlayer();
-                  canRollDice = true;
-                }
-                counter++;
-                const cell = cells.find(
-                  (cell) =>
-                    cell.getAttribute("cellNo") == path[currentPlayer][counter],
-                );
-                cell.append(token);
-                const tokenAudio = new Audio("./token.mp3");
-                tokenAudio.play();
-                console.log(
-                  "moved to: ",
-                  cell,
-                  "currentPlayer cell to move: ",
-                  path[currentPlayer][counter],
-                  " but moved to ",
-                  cell.getAttribute("cellNo"),
-                );
-                tokenPos.set(token, counter);
-              }, 200);
-
-              console.log(
-                currentPlayer + "is moving to: ",
-                path[currentPlayer][counter],
-                path[currentPlayer],
-              );
-            }
-          });
-        });
+        tokens.forEach((token) => {});
         console.log(tokens);
 
         // populate homeCells
@@ -309,8 +247,9 @@
               "style",
               `background-color: var(--${el}); grid-area: ${el[0] + i}; border: 1px dashed white;`,
             );
+            div.onclick = handleCellClick;
             ludo.append(div);
-
+            div.setAttribute("cellNo", el[0] + i);
             cells.push(div);
           }
         });
@@ -335,7 +274,8 @@
             "style",
             `color: orange; border: 1px dotted black; grid-area: c${i}; display: flex; justify-content: center; align-items: center; background-color: ${colorCell.hasOwnProperty(i) ? `var(--${colorCell[i]})` : "white"};`,
           );
-          div.innerText = i;
+          // div.innerText = i;
+          div.onclick = handleCellClick;
 
           div.setAttribute("cellNo", i);
 
@@ -368,13 +308,118 @@
         3. the current player clicks on its coloured dice
         4. if it's in home then move it out to its home index - 52 for red;
         else move it to the next possible cell
-        
+
             1. if the cell being moved to contains extra tokens of some other player and is not home cell or
             stop cell then make the other party's token move to its home and append the current token there
             2. if its a resting place just append the token there
 
             => maintain a record of how many tokens have reached home for each player and the game continues until at least two players are playing
+
+
+
+
+
+
+            Resting Spots => 47, 8, 21, 34, 52, 39, 26, 13
         */
+
+      function handleCellClick(e) {
+        // let clickedCell = e.target;
+        // if(!e.target.getAttribute("cellNo")){
+        //   clickedCell = e.target.parentElement;
+        // };
+        // const allTokens = clickedCell.querySelectorAll("div");
+        // console.log(allTokens);
+
+        let clickedCell = e.currentTarget;
+        console.log(clickedCell.getAttribute("cellNo"));
+        const allTokens = Array.from(clickedCell.querySelectorAll("div")); // for readability purpose you can add classes to all tokens as "token" so it would be much easir to select them
+
+        const tokensOfCurrentPlayer = allTokens.filter(
+          (token) => token.getAttribute("color") == currentPlayer,
+        );
+        const token = tokensOfCurrentPlayer[0];
+        if (!token) return;
+
+        const currentPos = tokenPos.get(token);
+        const color = token.getAttribute("color");
+
+        if (color == currentPlayer && currentPos == null && diceResult == 6) {
+          cells
+            .find(
+              (cell) => cell.getAttribute("cellNo") == path[currentPlayer][0],
+            )
+            .append(token);
+          tokenPos.set(token, 0);
+          const tokenAudio = new Audio("./token.mp3");
+          tokenAudio.play();
+          canRollDice = true;
+        } else if (
+          color == currentPlayer &&
+          currentPos != null &&
+          currentPos + diceResult <= 56
+        ) {
+          let counter = currentPos;
+          let toMoveTo = currentPos + diceResult;
+          const id = setInterval(() => {
+            if (counter == toMoveTo) {
+              clearInterval(id);
+              cutAndChange();
+              canRollDice = true;
+              return;
+            }
+            counter++;
+            const cell = cells.find(
+              (cell) =>
+                cell.getAttribute("cellNo") == path[currentPlayer][counter],
+            );
+            cell.append(token);
+            const tokenAudio = new Audio("./token.mp3");
+            tokenAudio.play();
+            tokenPos.set(token, counter);
+          }, 300);
+
+          function cutAndChange() {
+            const restingSpots = [47, 8, 21, 34, 52, 39, 26, 13];
+            if (!restingSpots.includes(toMoveTo)) {
+              const destinationCell = cells.find(
+                (cell) => cell.getAttribute("cellNo") == path[currentPlayer][toMoveTo],
+              );
+              console.log("--------------------------------");
+              console.log("Destination Cell: ", destinationCell);
+              console.log("--------------------------------");
+
+              const allTokens = Array.from(
+                destinationCell.querySelectorAll("div"),
+              );
+              const tokensToCut = allTokens.filter(
+                (token) => token.getAttribute("color") != currentPlayer,
+              );
+              if (tokensToCut.length > 0) {
+                tokensToCut.forEach((tokenToCut) => {
+                  const tokenCutColor = tokenToCut.getAttribute("color");
+
+                  const cutAndMoveToCell = cells.find(
+                    (cell) =>
+                      cell
+                        .getAttribute("cellNo")
+                        .startsWith(`${tokenCutColor[0]}h`) &&
+                      cell.innerHTML == "",
+                  );
+                  cutAndMoveToCell.append(tokenToCut);
+                  tokenPos.set(tokenToCut, null);
+                });
+
+                return; // so that player is not changed after cutting a goti
+              }
+
+              // tab kya hoga jb ek se jyada tokens hain kisi dusre player ke
+            }
+
+            if (diceResult != 6) changeCurrentPlayer();
+          }
+        }
+      }
     </script>
   </body>
 </html>
