@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        --red: #ec1c22;
+        --yellow: #fedf16;
+        --green: #00a048;
+        --blue: #22b0fd;
+
+        --width: 700px;
+        --height: 700px;
+      }
+
+      body {
+        height: 100vh;
+        background-color: rgb(255, 166, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+    </style>
+    <style>
+      .ludo {
+        display: grid;
+        width: var(--width);
+        height: var(--height);
+        grid-template-columns: repeat(15, 1fr);
+        grid-template-rows: repeat(15, 1fr);
+        grid-template-areas:
+          "red  red  red  red  red  red  c23  c24  c25  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c22  g1   c26  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c21  g2   c27  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c20  g3   c28  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c19  g4   c29  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c18  g5   c30  grn  grn  grn  grn  grn  grn"
+          "c12  c13  c14  c15  c16  c17  h    h    h    c31  c32  c33  c34  c35  c36"
+          "c11  r1   r2   r3   r4   r5   h    h    h    y5   y4   y3   y2   y1   c37"
+          "c10  c9   c8   c7   c6   c5   h    h    h    c43  c42  c41  c40  c39  c38"
+          "blu  blu  blu  blu  blu  blu  c4   b5   c44  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c3   b4   c45  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c2   b3   c46  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c1   b2   c47  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c52  b1   c48  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c51  c50  c49  ylo  ylo  ylo  ylo  ylo  ylo";
+      }
+
+      .cell:has(> :nth-child(2)) {
+        width: calc(var(--width) / 15);
+        width: calc(var(--height) / 15);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cell:has(> :nth-child(2)) div {
+        position: absolute;
+      }
+
+      /* @keyframes glow {
+        0% {
+          transform: scale(1);
+          filter: brightness(100%);
+        }
+        100% {
+          transform: scale(1.2);
+          filter: brightness(90%);
+        }
+      }
+
+      div[color="red"]{
+        animation-name: glow;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-timing-function: ease-in-out;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <div class="ludo"></div>
+
+    <div id="dice">
+      <img width="40px" height="40px" src="./face1.png" alt="" />
+    </div>
+
+    <script>
+      const cells = [];
+      const tokens = [];
+      const tokenPos = new Map();
+      const ludo = document.querySelector(".ludo");
+
+      let currentPlayer = "red";
+      let diceResult = null;
+
+      let canRollDice = true;
+
+      const playersStartingPos = {
+        red: 13,
+        blue: 52,
+        green: 26,
+        yellow: 39,
+      };
+
+      let path = {
+        blue: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 51) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "b" + (index + 1)),
+        ],
+        green: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 25) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "g" + (index + 1)),
+        ],
+        yellow: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 38) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "y" + (index + 1)),
+        ],
+        red: [
+          ...Array.from({ length: 51 }, (_, index) => ((index + 12) % 52) + 1),
+          ...Array.from({ length: 5 }, (_, index) => "r" + (index + 1)),
+        ],
+      };
+
+      console.log(path);
+
+      ////////////////////////Roll Dice //////////////////////////////
+
+      const dice = document.getElementById("dice");
+      dice.addEventListener("click", () => {
+        if (!canRollDice) return;
+        dice.querySelector("img").src = "./rolling_dice.gif";
+        const diceSound = new Audio("./dice.mp3");
+        diceSound.play();
+        setTimeout(() => {
+          diceResult = Math.ceil(Math.random() * 6);
+          dice.querySelector("img").src = `./face${diceResult}.png`;
+          // first decide if with the given result of the dice the current player proceed:
+          // 1. extract all tokens that are in the tokens array and find their position in the tokenPos object add the current result to the index and check if it equals to 55 or less than 55 if no cell satisfy the given condition then the player can't proceed
+
+          const currentPlayersTokens = tokens.filter(
+            (token) => token.getAttribute("color") == currentPlayer,
+          );
+          const canMove = currentPlayersTokens.filter((el) => {
+            const pos = tokenPos.get(el);
+            console.log(pos);
+            if (diceResult == 6 && pos == null) return true;
+            if (pos != null && pos + diceResult <= 56) return true;
+          });
+
+          if (canMove.length == 0) {
+            canRollDice = true;
+            changeCurrentPlayer();
+          } else {
+            canRollDice = false;
+            console.log(currentPlayer + " beta khelo ");
+          }
+
+          console.log(canMove);
+          console.log(tokenPos);
+        }, 300);
+      });
+
+      // //////////////////////////// All Cells ///////////////////////
+
+      function changeCurrentPlayer() {
+        const allPlayers = ["red", "green", "yellow", "blue"];
+        currentPlayer =
+          allPlayers[
+            (allPlayers.indexOf(currentPlayer) + 1) % allPlayers.length
+          ];
+
+        console.log(currentPlayer + " ki bari hai ab");
+      }
+
+      function DrawLudo() {
+        // Draw Player Spots
+
+        const colorToArea = {
+          red: "red",
+          blue: "blu",
+          green: "grn",
+          yellow: "ylo",
+        };
+        ["blue", "green", "yellow", "red"].forEach((color) => {
+          const div = document.createElement("div");
+          div.setAttribute(
+            "style",
+            `background-color: var(--${color}); grid-area: ${colorToArea[color]}; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 10px 0 black`,
+          );
+          ludo.append(div);
+
+          const innerDiv = document.createElement("div");
+          innerDiv.setAttribute(
+            "style",
+            "background-color: white; width: 60%; height: 60%; display: grid; grid-template-columns: 1fr 1fr; grid-template-columns: 1fr 1fr; padding: 20px; gap: 30px; justify-items: center; align-items: center",
+          );
+          div.append(innerDiv);
+
+          for (let i = 1; i <= 4; i++) {
+            const spotDiv = document.createElement("div");
+            spotDiv.setAttribute(
+              "style",
+              `background-color: var(--${color}); width: 50px; height: 50px; display:flex; justify-content:center; align-items:center `,
+            );
+            spotDiv.setAttribute("cellNo", color[0] + "h" + i);
+            spotDiv.onclick = handleCellClick;
+            innerDiv.append(spotDiv);
+
+            const token = document.createElement("div");
+            // token.src = "./red.png";
+            token.setAttribute(
+              "style",
+              `width: 40px; height: 40px;  border: 2px solid #ff0f0; border-radius: 50%; border: 1px solid black; box-shadow: 0px 0px 10px 0px black; position: relative;`,
+            );
+            token.innerHTML = `<img src="./goti.png" style="position: absolute; top: -80%; left: -10%" />`
+            token.setAttribute("color", color);
+            spotDiv.append(token);
+            tokens.push(token);
+            cells.push(spotDiv);
+            tokenPos.set(token, null);
+          }
+        });
+
+        // add event listeners to tokens
+        tokens.forEach((token) => {});
+        console.log(tokens);
+
+        // populate homeCells
+
+        ["blue", "red", "yellow", "green"].forEach((el) => {
+          for (let i = 1; i <= 5; i++) {
+            const div = document.createElement("div");
+            div.setAttribute(
+              "style",
+              `background-color: var(--${el}); grid-area: ${el[0] + i}; border: 1px dashed white;`,
+            );
+            div.onclick = handleCellClick;
+            ludo.append(div);
+            div.setAttribute("cellNo", el[0] + i);
+            cells.push(div);
+          }
+        });
+
+        // Home
+
+        const div = document.createElement("div");
+        div.setAttribute(
+          "style",
+          "grid-area: h; background-color: white; border: 1px dotted black; background-image: url('./Home.png'); background-size: 100% 100%",
+        );
+
+        ludo.append(div);
+
+        // cells
+        const stopCells = [8, 21, 34, 47];
+
+        const colorCell = { 52: "blue", 39: "yellow", 26: "green", 13: "red" };
+        for (let i = 1; i <= 52; i++) {
+          const div = document.createElement("div");
+          div.setAttribute(
+            "style",
+            `color: orange; border: 1px dotted black; grid-area: c${i}; display: flex; justify-content: center; align-items: center; background-color: ${colorCell.hasOwnProperty(i) ? `var(--${colorCell[i]})` : "white"};`,
+          );
+          // div.innerText = i;
+          div.onclick = handleCellClick;
+
+          div.setAttribute("cellNo", i);
+
+          if (stopCells.includes(i)) {
+            div.innerHTML = `<i class="fa-regular fa-star"></i>`;
+          }
+
+          ludo.append(div);
+          cells.push(div);
+
+          div.classList.add("cell");
+        }
+      }
+
+      DrawLudo();
+
+      console.log(
+        "red tokens: ",
+        tokens.filter((token) => token.getAttribute("color") == "blue"),
+      );
+
+      console.log(cells);
+
+      // Rules:
+
+      /*
+        1. Player clicks on dice to play
+        2. store the random number in a global variable
+        a. if the dice result is 6 and there are tokens left in the players home make them glow
+        3. the current player clicks on its coloured dice
+        4. if it's in home then move it out to its home index - 52 for red;
+        else move it to the next possible cell
+
+            1. if the cell being moved to contains extra tokens of some other player and is not home cell or
+            stop cell then make the other party's token move to its home and append the current token there
+            2. if its a resting place just append the token there
+
+            => maintain a record of how many tokens have reached home for each player and the game continues until at least two players are playing
+
+
+
+
+
+
+            Resting Spots => 47, 8, 21, 34, 52, 39, 26, 13
+        */
+
+      function handleCellClick(e) {
+        // let clickedCell = e.target;
+        // if(!e.target.getAttribute("cellNo")){
+        //   clickedCell = e.target.parentElement;
+        // };
+        // const allTokens = clickedCell.querySelectorAll("div");
+        // console.log(allTokens);
+
+        let clickedCell = e.currentTarget;
+        console.log(clickedCell.getAttribute("cellNo"));
+        const allTokens = Array.from(clickedCell.querySelectorAll("div")); // for readability purpose you can add classes to all tokens as "token" so it would be much easir to select them
+
+        const tokensOfCurrentPlayer = allTokens.filter(
+          (token) => token.getAttribute("color") == currentPlayer,
+        );
+        const token = tokensOfCurrentPlayer[0];
+        if (!token) return;
+
+        const currentPos = tokenPos.get(token);
+        const color = token.getAttribute("color");
+
+        if (color == currentPlayer && currentPos == null && diceResult == 6) {
+          cells
+            .find(
+              (cell) => cell.getAttribute("cellNo") == path[currentPlayer][0],
+            )
+            .append(token);
+          tokenPos.set(token, 0);
+          const tokenAudio = new Audio("./token.mp3");
+          tokenAudio.play();
+          canRollDice = true;
+        } else if (
+          color == currentPlayer &&
+          currentPos != null &&
+          currentPos + diceResult <= 56
+        ) {
+          let counter = currentPos;
+          let toMoveTo = currentPos + diceResult;
+          const id = setInterval(() => {
+            if (counter == toMoveTo) {
+              clearInterval(id);
+              cutAndChange();
+              canRollDice = true;
+              return;
+            }
+            counter++;
+            const cell = cells.find(
+              (cell) =>
+                cell.getAttribute("cellNo") == path[currentPlayer][counter],
+            );
+            cell.append(token);
+            const tokenAudio = new Audio("./token.mp3");
+            tokenAudio.play();
+            tokenPos.set(token, counter);
+          }, 300);
+
+          function cutAndChange() {
+            const restingSpots = [47, 8, 21, 34, 52, 39, 26, 13];
+            if (!restingSpots.includes(toMoveTo)) {
+              const destinationCell = cells.find(
+                (cell) => cell.getAttribute("cellNo") == path[currentPlayer][toMoveTo],
+              );
+              console.log("--------------------------------");
+              console.log("Destination Cell: ", destinationCell);
+              console.log("--------------------------------");
+
+              const allTokens = Array.from(
+                destinationCell.querySelectorAll("div"),
+              );
+              const tokensToCut = allTokens.filter(
+                (token) => token.getAttribute("color") != currentPlayer,
+              );
+              if (tokensToCut.length > 0) {
+                tokensToCut.forEach((tokenToCut) => {
+                  const tokenCutColor = tokenToCut.getAttribute("color");
+
+                  const cutAndMoveToCell = cells.find(
+                    (cell) =>
+                      cell
+                        .getAttribute("cellNo")
+                        .startsWith(`${tokenCutColor[0]}h`) &&
+                      cell.innerHTML == "",
+                  );
+                  cutAndMoveToCell.append(tokenToCut);
+                  tokenPos.set(tokenToCut, null);
+                });
+
+                return; // so that player is not changed after cutting a goti
+              }
+
+              // tab kya hoga jb ek se jyada tokens hain kisi dusre player ke
+            }
+
+            if (diceResult != 6) changeCurrentPlayer();
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
