@@ -68,7 +68,7 @@
           "blu  blu  blu  blu  blu  blu  c51  c50  c49  ylo  ylo  ylo  ylo  ylo  ylo";
       }
       .ludo > div {
-        border: 1px dotted black;
+        border: 1px solid rgba(0, 0, 0, 0.426);
       }
 
       .home {
@@ -138,6 +138,45 @@
         background-image: url("./images/star.png");
         background-size: contain;
       }
+
+
+      /* Win Cell */
+      .winCell{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: 
+        "green green"
+        "red yellow"
+        "blue blue"
+        ;
+        
+      }
+      .winCell>div{
+        
+        
+      }
+      .winCell>.green{
+        grid-area: green;
+        
+        transform: rotate(180deg);
+      }
+      .winCell>.blue{
+        grid-area: blue;
+        
+        
+      }
+      .winCell>.red{
+        grid-area: red;
+        
+        
+        transform: translate(-10px) rotate(90deg);
+      }
+      .winCell>.yellow{
+        grid-area: yellow;
+        
+        transform: rotate(270deg) translateY(10px);
+      }
     </style>
   </head>
 
@@ -165,7 +204,7 @@
       <div style="grid-area: c17" cellNo="17"></div>
       <div style="grid-area: c18" cellNo="18"></div>
       <div class="cell" style="grid-area: c19" cellNo="19">
-        <img src="./images/goti.png" alt="" />
+        
       </div>
       <div style="grid-area: c20" cellNo="20"></div>
       <div style="grid-area: c21" cellNo="21" class="stopCell"></div>
@@ -212,37 +251,37 @@
       <!-- Home Cells -->
       <div style="grid-area: red; background-color: var(--red)" class="home">
         <div>
-          <div cellNo="HR1" style="background-color: var(--red)"></div>
-          <div cellNo="HR2" style="background-color: var(--red)"></div>
-          <div cellNo="HR3" style="background-color: var(--red)"></div>
-          <div cellNo="HR4" style="background-color: var(--red)"></div>
+          <div cellNo="HR1" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
+          <div cellNo="HR2" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
+          <div cellNo="HR3" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
+          <div cellNo="HR4" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
         </div>
       </div>
 
       <div style="grid-area: blu; background-color: var(--blue)" class="home">
         <div>
-          <div cellNo="HB1" style="background-color: var(--blue)"></div>
-          <div cellNo="HB2" style="background-color: var(--blue)"></div>
-          <div cellNo="HB3" style="background-color: var(--blue)"></div>
-          <div cellNo="HB4" style="background-color: var(--blue)"></div>
+          <div cellNo="HB1" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
+          <div cellNo="HB2" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
+          <div cellNo="HB3" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
+          <div cellNo="HB4" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
         </div>
       </div>
       <div style="grid-area: ylo; background-color: var(--yellow)" class="home">
         <div>
-          <div cellNo="HY1" style="background-color: var(--yellow)"></div>
-          <div cellNo="HY2" style="background-color: var(--yellow)"></div>
-          <div cellNo="HY3" style="background-color: var(--yellow)"></div>
-          <div cellNo="HY4" style="background-color: var(--yellow)"></div>
+          <div cellNo="HY1" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
+          <div cellNo="HY2" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
+          <div cellNo="HY3" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
+          <div cellNo="HY4" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
         </div>
       </div>
       <div style="grid-area: grn; background-color: var(--green)" class="home">
         <div>
           <div cellNo="HG1" style="background-color: var(--green)">
-            <img src="./images/goti.png" alt="" />
+            <img src="./images/token/green.png" alt="" />
           </div>
-          <div cellNo="HG2" style="background-color: var(--green)"></div>
-          <div cellNo="HG3" style="background-color: var(--green)"></div>
-          <div cellNo="HG4" style="background-color: var(--green)"></div>
+          <div cellNo="HG2" style="background-color: var(--green)"><img src="./images/token/green.png" alt="" /></div>
+          <div cellNo="HG3" style="background-color: var(--green)"><img src="./images/token/green.png" alt="" /></div>
+          <div cellNo="HG4" style="background-color: var(--green)"><img src="./images/token/green.png" alt="" /></div>
         </div>
       </div>
 
@@ -256,7 +295,35 @@
           background-image: url(&quot;./images/winCell.png&quot;);
           background-size: 100% 100%;
         "
-      ></div>
+        class="winCell"
+      >
+      
+      <div class="green" cellNo="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+      </div>
+      <div class="red" cellNo="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+      </div>
+      <div class="blue" cellNo="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+      </div>
+      <div class="yellow" cellNo="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+        <img src="./images/token/green.png" alt="">
+      </div>
+
+    </div>
 
       <!-- End of win cell -->
 
@@ -352,7 +419,7 @@
         const allCells  = document.querySelectorAll("div[cellNo]");
         console.log(allCells);
 
-        
+
     </script>
   </body>
 </html>
