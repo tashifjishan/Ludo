@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        --red: #ec1c22;
+        --yellow: #fedf16;
+        --green: #00a048;
+        --blue: #22b0fd;
+
+        --width: 700px;
+        --height: 700px;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        background-color: rgb(255, 166, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+    </style>
+    <style>
+      .ludo {
+        display: grid;
+        width: var(--width);
+        height: var(--height);
+        background-color: white;
+        grid-template-columns: repeat(15, 1fr);
+        grid-template-rows: repeat(15, 1fr);
+        grid-template-areas:
+          "red  red  red  red  red  red  c23  c24  c25  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c22  g1   c26  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c21  g2   c27  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c20  g3   c28  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c19  g4   c29  grn  grn  grn  grn  grn  grn"
+          "red  red  red  red  red  red  c18  g5   c30  grn  grn  grn  grn  grn  grn"
+          "c12  c13  c14  c15  c16  c17  h    h    h    c31  c32  c33  c34  c35  c36"
+          "c11  r1   r2   r3   r4   r5   h    h    h    y5   y4   y3   y2   y1   c37"
+          "c10  c9   c8   c7   c6   c5   h    h    h    c43  c42  c41  c40  c39  c38"
+          "blu  blu  blu  blu  blu  blu  c4   b5   c44  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c3   b4   c45  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c2   b3   c46  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c1   b2   c47  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c52  b1   c48  ylo  ylo  ylo  ylo  ylo  ylo"
+          "blu  blu  blu  blu  blu  blu  c51  c50  c49  ylo  ylo  ylo  ylo  ylo  ylo";
+      }
+      .ludo > div {
+        border: 1px dotted black;
+      }
+
+      .home {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .home > div {
+        background-color: white;
+        width: 70%;
+        height: 70%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+        padding: 40px;
+      }
+      .home > div > div {
+        border-radius: 50%;
+      }
+      div[cellNo]:has(> :nth-child(2)) {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        /* overflow: hidden; */
+      }
+
+      div[cellNo]:has(> :nth-child(2)) img {
+        position: relative;
+        width: 30px;
+        height: 40px;
+        object-fit: contain;
+        margin-left: -1.4rem;
+      }
+
+      div[cellNo]:has(> :nth-child(5))::after {
+        content: "4+";
+        background-color: rgb(255, 73, 73);
+        position: absolute;
+        padding: 4px 4px;
+        font-weight: bold;
+        font-size: 16px;
+        font-family: monospace;
+        display: block;
+        top: 0;
+        right: 0;
+        color: white;
+        z-index: 2;
+      }
+
+      div[cellNo]:has(> :nth-child(2)) img:first-child {
+        margin-left: 0;
+      }
+      div[cellNo] {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      div[cellNo] img {
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+      }
+
+      .stopCell {
+        background-image: url("./images/star.png");
+        background-size: contain;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ludo">
+      <div style="grid-area: c1" cellNo="1"></div>
+      <div style="grid-area: c2" cellNo="2"></div>
+      <div style="grid-area: c3" cellNo="3"></div>
+      <div style="grid-area: c4" cellNo="4"></div>
+      <div style="grid-area: c5" cellNo="5"></div>
+      <div style="grid-area: c6" cellNo="6"></div>
+      <div style="grid-area: c7" cellNo="7"></div>
+      <div style="grid-area: c8" class="stopCell" cellNo="8"></div>
+      <div style="grid-area: c9" cellNo="9"></div>
+      <div style="grid-area: c10" cellNo="10"></div>
+      <div style="grid-area: c11" cellNo="11"></div>
+      <div style="grid-area: c12" cellNo="12"></div>
+      <div
+        style="grid-area: c13; background-color: var(--red)"
+        cellNo="13"
+      ></div>
+      <div style="grid-area: c14" cellNo="14"></div>
+      <div style="grid-area: c15" cellNo="15"></div>
+      <div style="grid-area: c16" cellNo="16"></div>
+      <div style="grid-area: c17" cellNo="17"></div>
+      <div style="grid-area: c18" cellNo="18"></div>
+      <div class="cell" style="grid-area: c19" cellNo="19">
+        <img src="./images/goti.png" alt="" />
+      </div>
+      <div style="grid-area: c20" cellNo="20"></div>
+      <div style="grid-area: c21" cellNo="21" class="stopCell"></div>
+      <div style="grid-area: c22" cellNo="22"></div>
+      <div style="grid-area: c23" cellNo="23"></div>
+      <div style="grid-area: c24" cellNo="24"></div>
+      <div style="grid-area: c25" cellNo="25"></div>
+      <div
+        style="grid-area: c26; background-color: var(--green)"
+        cellNo="26"
+      ></div>
+      <div style="grid-area: c27" cellNo="27"></div>
+      <div style="grid-area: c28" cellNo="28"></div>
+      <div style="grid-area: c29" cellNo="29"></div>
+      <div style="grid-area: c30" cellNo="30"></div>
+      <div style="grid-area: c31" cellNo="31"></div>
+      <div style="grid-area: c32" cellNo="32"></div>
+      <div style="grid-area: c33" cellNo="33">
+        <img src="./images/goti.png" alt="" />
+      </div>
+      <div style="grid-area: c34" cellNo="34" class="stopCell"></div>
+      <div style="grid-area: c35" cellNo="35"></div>
+      <div style="grid-area: c36" cellNo="36"></div>
+      <div style="grid-area: c37" cellNo="37"></div>
+      <div style="grid-area: c38" cellNo="38"></div>
+      <div
+        style="grid-area: c39; background-color: var(--yellow)"
+        cellNo="39"
+      ></div>
+      <div style="grid-area: c40" cellNo="40"></div>
+      <div style="grid-area: c41" cellNo="41"></div>
+      <div style="grid-area: c42" cellNo="42"></div>
+      <div style="grid-area: c43" cellNo="43"></div>
+      <div style="grid-area: c44" cellNo="44"></div>
+      <div style="grid-area: c45" cellNo="45"></div>
+      <div style="grid-area: c46" cellNo="46"></div>
+      <div style="grid-area: c47" cellNo="47" class="stopCell"></div>
+      <div style="grid-area: c48" cellNo="48"></div>
+      <div style="grid-area: c49" cellNo="49"></div>
+      <div style="grid-area: c50" cellNo="50"></div>
+      <div style="grid-area: c51" cellNo="51"></div>
+      <div style="grid-area: c52; background: var(--blue)" cellNo="52"></div>
+
+      <!-- Home Cells -->
+      <div style="grid-area: red; background-color: var(--red)" class="home">
+        <div>
+          <div cellNo="HR1" style="background-color: var(--red)"></div>
+          <div cellNo="HR2" style="background-color: var(--red)"></div>
+          <div cellNo="HR3" style="background-color: var(--red)"></div>
+          <div cellNo="HR4" style="background-color: var(--red)"></div>
+        </div>
+      </div>
+
+      <div style="grid-area: blu; background-color: var(--blue)" class="home">
+        <div>
+          <div cellNo="HB1" style="background-color: var(--blue)"></div>
+          <div cellNo="HB2" style="background-color: var(--blue)"></div>
+          <div cellNo="HB3" style="background-color: var(--blue)"></div>
+          <div cellNo="HB4" style="background-color: var(--blue)"></div>
+        </div>
+      </div>
+      <div style="grid-area: ylo; background-color: var(--yellow)" class="home">
+        <div>
+          <div cellNo="HY1" style="background-color: var(--yellow)"></div>
+          <div cellNo="HY2" style="background-color: var(--yellow)"></div>
+          <div cellNo="HY3" style="background-color: var(--yellow)"></div>
+          <div cellNo="HY4" style="background-color: var(--yellow)"></div>
+        </div>
+      </div>
+      <div style="grid-area: grn; background-color: var(--green)" class="home">
+        <div>
+          <div cellNo="HG1" style="background-color: var(--green)">
+            <img src="./images/goti.png" alt="" />
+          </div>
+          <div cellNo="HG2" style="background-color: var(--green)"></div>
+          <div cellNo="HG3" style="background-color: var(--green)"></div>
+          <div cellNo="HG4" style="background-color: var(--green)"></div>
+        </div>
+      </div>
+
+      <!-- End of Home Cells -->
+
+      <!-- WinCell -->
+
+      <div
+        style="
+          grid-area: h;
+          background-image: url(&quot;./images/winCell.png&quot;);
+          background-size: 100% 100%;
+        "
+      ></div>
+
+      <!-- End of win cell -->
+
+      <!-- --------------------------------------------------------------- -->
+
+      <!-- HomeCells -->
+
+      <div
+        style="grid-area: r1; background-color: var(--red)"
+        cellNo="r1"
+      ></div>
+      <div
+        style="grid-area: r2; background-color: var(--red)"
+        cellNo="r2"
+      ></div>
+      <div
+        style="grid-area: r3; background-color: var(--red)"
+        cellNo="r3"
+      ></div>
+      <div
+        style="grid-area: r4; background-color: var(--red)"
+        cellNo="r4"
+      ></div>
+      <div
+        style="grid-area: r5; background-color: var(--red)"
+        cellNo="r5"
+      ></div>
+
+      <div
+        style="grid-area: g1; background-color: var(--green)"
+        cellNo="g1"
+      ></div>
+      <div
+        style="grid-area: g2; background-color: var(--green)"
+        cellNo="g2"
+      ></div>
+      <div
+        style="grid-area: g3; background-color: var(--green)"
+        cellNo="g3"
+      ></div>
+      <div
+        style="grid-area: g4; background-color: var(--green)"
+        cellNo="g4"
+      ></div>
+      <div
+        style="grid-area: g5; background-color: var(--green)"
+        cellNo="g5"
+      ></div>
+
+      <div
+        style="grid-area: b1; background-color: var(--blue)"
+        cellNo="b1"
+      ></div>
+      <div
+        style="grid-area: b2; background-color: var(--blue)"
+        cellNo="b2"
+      ></div>
+      <div
+        style="grid-area: b3; background-color: var(--blue)"
+        cellNo="b3"
+      ></div>
+      <div
+        style="grid-area: b4; background-color: var(--blue)"
+        cellNo="b4"
+      ></div>
+      <div
+        style="grid-area: b5; background-color: var(--blue)"
+        cellNo="b5"
+      ></div>
+
+      <div
+        style="grid-area: y1; background-color: var(--yellow)"
+        cellNo="y1"
+      ></div>
+      <div
+        style="grid-area: y2; background-color: var(--yellow)"
+        cellNo="y2"
+      ></div>
+      <div
+        style="grid-area: y3; background-color: var(--yellow)"
+        cellNo="y3"
+      ></div>
+      <div
+        style="grid-area: y4; background-color: var(--yellow)"
+        cellNo="y4"
+      ></div>
+      <div
+        style="grid-area: y5; background-color: var(--yellow)"
+        cellNo="y5"
+      ></div>
+    </div>
+    <script>
+        const allCells  = document.querySelectorAll("div[cellNo]");
+        console.log(allCells);
+
+        
+    </script>
+  </body>
+</html>
