@@ -139,43 +139,52 @@
         background-size: contain;
       }
 
-
       /* Win Cell */
-      .winCell{
+      .winCell {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas: 
-        "green green"
-        "red yellow"
-        "blue blue"
-        ;
-        
+        grid-template-areas:
+          "green green"
+          "red yellow"
+          "blue blue";
       }
-      .winCell>div{
-        
-        
+      .winCell > div {
       }
-      .winCell>.green{
+      .winCell > .green {
         grid-area: green;
-        
+
         transform: rotate(180deg);
       }
-      .winCell>.blue{
+      .winCell > .blue {
         grid-area: blue;
-        
-        
       }
-      .winCell>.red{
+      .winCell > .red {
         grid-area: red;
-        
-        
+
         transform: translate(-10px) rotate(90deg);
       }
-      .winCell>.yellow{
+      .winCell > .yellow {
         grid-area: yellow;
-        
+
         transform: rotate(270deg) translateY(10px);
+      }
+
+      .flashAnimate {
+        animation-name: flash;
+        animation-duration: 300ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+      }
+
+      @keyframes flash {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.6;
+        }
       }
     </style>
   </head>
@@ -203,9 +212,7 @@
       <div style="grid-area: c16" cellNo="16"></div>
       <div style="grid-area: c17" cellNo="17"></div>
       <div style="grid-area: c18" cellNo="18"></div>
-      <div class="cell" style="grid-area: c19" cellNo="19">
-        
-      </div>
+      <div class="cell" style="grid-area: c19" cellNo="19"></div>
       <div style="grid-area: c20" cellNo="20"></div>
       <div style="grid-area: c21" cellNo="21" class="stopCell"></div>
       <div style="grid-area: c22" cellNo="22"></div>
@@ -249,39 +256,81 @@
       <div style="grid-area: c52; background: var(--blue)" cellNo="52"></div>
 
       <!-- Home Cells -->
-      <div style="grid-area: red; background-color: var(--red)" class="home">
+      <div
+        style="grid-area: red; background-color: var(--red)"
+        class="home redkaghar"
+      >
         <div>
-          <div cellNo="HR1" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
-          <div cellNo="HR2" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
-          <div cellNo="HR3" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
-          <div cellNo="HR4" style="background-color: var(--red)"><img src="./images/token/red.png" alt="" /></div>
+          <div cellNo="HR" style="background-color: var(--red)">
+            <img token="red" src="./images/token/red.png" alt="" />
+          </div>
+          <div cellNo="HR" style="background-color: var(--red)">
+            <img token="red" src="./images/token/red.png" alt="" />
+          </div>
+          <div cellNo="HR" style="background-color: var(--red)">
+            <img token="red" src="./images/token/red.png" alt="" />
+          </div>
+          <div cellNo="HR" style="background-color: var(--red)">
+            <img token="red" src="./images/token/red.png" alt="" />
+          </div>
         </div>
       </div>
 
-      <div style="grid-area: blu; background-color: var(--blue)" class="home">
+      <div
+        style="grid-area: blu; background-color: var(--blue)"
+        class="home bluekaghar"
+      >
         <div>
-          <div cellNo="HB1" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
-          <div cellNo="HB2" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
-          <div cellNo="HB3" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
-          <div cellNo="HB4" style="background-color: var(--blue)"><img src="./images/token/blue.png" alt="" /></div>
-        </div>
-      </div>
-      <div style="grid-area: ylo; background-color: var(--yellow)" class="home">
-        <div>
-          <div cellNo="HY1" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
-          <div cellNo="HY2" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
-          <div cellNo="HY3" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
-          <div cellNo="HY4" style="background-color: var(--yellow)"><img src="./images/token/yellow.png" alt="" /></div>
-        </div>
-      </div>
-      <div style="grid-area: grn; background-color: var(--green)" class="home">
-        <div>
-          <div cellNo="HG1" style="background-color: var(--green)">
-            <img src="./images/token/green.png" alt="" />
+          <div cellNo="HB" style="background-color: var(--blue)">
+            <img token="blue" src="./images/token/blue.png" alt="" />
           </div>
-          <div cellNo="HG2" style="background-color: var(--green)"><img src="./images/token/green.png" alt="" /></div>
-          <div cellNo="HG3" style="background-color: var(--green)"><img src="./images/token/green.png" alt="" /></div>
-          <div cellNo="HG4" style="background-color: var(--green)"><img src="./images/token/green.png" alt="" /></div>
+          <div cellNo="HB" style="background-color: var(--blue)">
+            <img token="blue" src="./images/token/blue.png" alt="" />
+          </div>
+          <div cellNo="HB" style="background-color: var(--blue)">
+            <img token="blue" src="./images/token/blue.png" alt="" />
+          </div>
+          <div cellNo="HB" style="background-color: var(--blue)">
+            <img token="blue" src="./images/token/blue.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div
+        style="grid-area: ylo; background-color: var(--yellow)"
+        class="home yellowkaghar"
+      >
+        <div>
+          <div cellNo="HY" style="background-color: var(--yellow)">
+            <img token="yellow" src="./images/token/yellow.png" alt="" />
+          </div>
+          <div cellNo="HY" style="background-color: var(--yellow)">
+            <img token="yellow" src="./images/token/yellow.png" alt="" />
+          </div>
+          <div cellNo="HY" style="background-color: var(--yellow)">
+            <img token="yellow" src="./images/token/yellow.png" alt="" />
+          </div>
+          <div cellNo="HY" style="background-color: var(--yellow)">
+            <img token="yellow" src="./images/token/yellow.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div
+        style="grid-area: grn; background-color: var(--green)"
+        class="home greenkaghar"
+      >
+        <div>
+          <div cellNo="HG" style="background-color: var(--green)">
+            <img token="green" src="./images/token/green.png" alt="" />
+          </div>
+          <div cellNo="HG" style="background-color: var(--green)">
+            <img token="green" src="./images/token/green.png" alt="" />
+          </div>
+          <div cellNo="HG" style="background-color: var(--green)">
+            <img token="green" src="./images/token/green.png" alt="" />
+          </div>
+          <div cellNo="HG" style="background-color: var(--green)">
+            <img token="green" src="./images/token/green.png" alt="" />
+          </div>
         </div>
       </div>
 
@@ -297,33 +346,11 @@
         "
         class="winCell"
       >
-      
-      <div class="green" cellNo="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
+        <div class="green" cellNo="greenHome"></div>
+        <div class="red" cellNo="redHome"></div>
+        <div class="blue" cellNo="blueHome"></div>
+        <div class="yellow" cellNo="yellowHome"></div>
       </div>
-      <div class="red" cellNo="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-      </div>
-      <div class="blue" cellNo="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-      </div>
-      <div class="yellow" cellNo="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-        <img src="./images/token/green.png" alt="">
-      </div>
-
-    </div>
 
       <!-- End of win cell -->
 
@@ -415,11 +442,235 @@
         cellNo="y5"
       ></div>
     </div>
+
+    <div>
+      <img
+        id="dice"
+        style="width: 50px; height: 50px"
+        src="./images/dice/face1.png"
+        alt=""
+      />
+    </div>
+
     <script>
-        const allCells  = document.querySelectorAll("div[cellNo]");
-        console.log(allCells);
+      const allCells = document.querySelectorAll("div[cellNo]");
+
+      const account = {
+        red: {
+          tokens: Array.from(document.querySelectorAll("img[token='red']")),
+          tokensWon: [],
+          path: [
+            ...Array.from(
+              { length: 51 },
+              (_, i) => ((i + 12) % 52) + 1,
+            ),
+            "r1",
+            "r2",
+            "r3",
+            "r4",
+            "r5",
+            "redHome",
+          ],
+          tokensPos: new Map(
+            Array.from(document.querySelectorAll("img[token='red']")).map(
+              (el) => [el, null],
+            ),
+          ),
+        },
+        green: {
+          tokens: Array.from(document.querySelectorAll("img[token='green']")),
+          tokensWon: [],
+          path: [
+            ...Array.from(
+              { length: 51 },
+              (_, i) => ((i + 25) % 52) + 1
+            ),
+            "g1",
+            "g2",
+            "g3",
+            "g4",
+            "g5",
+            "greenHome",
+          ],
+          tokensPos: new Map(
+            Array.from(document.querySelectorAll("img[token='green']")).map(
+              (el) => [el, null],
+            ),
+          ),
+        },
+        blue: {
+          tokens: Array.from(document.querySelectorAll("img[token='blue']")),
+          tokensWon: [],
+          path: [
+            ...Array.from(
+              { length: 51 },
+              (_, i) => ((i + 51) % 52) + 1
+            ),
+            "b1",
+            "b2",
+            "b3",
+            "b4",
+            "b5",
+            "blueHome",
+          ],
+          tokensPos: new Map(
+            Array.from(document.querySelectorAll("img[token='blue']")).map(
+              (el) => [el, null],
+            ),
+          ),
+        },
+        yellow: {
+          tokens: Array.from(document.querySelectorAll("img[token='yellow']")),
+          tokensWon: [],
+          path: [
+            ...Array.from(
+              { length: 51 },
+              (_, i) => ((i + 38) % 52) + 1
+            ),
+            "y1",
+            "y2",
+            "y3",
+            "y4",
+            "y5",
+            "yellowHome",
+          ],
+          tokensPos: new Map(
+            Array.from(document.querySelectorAll("img[token='yellow']")).map(
+              (el) => [el, null],
+            ),
+          ),
+        },
+      };
+
+      // current player
+
+      function animate(player) {
+        playerKaGhar = document.querySelector(`.${player}kaghar`);
+        playerKaGhar.classList.add("flashAnimate");
+      }
+
+      function removeFlashAnimation(player) {
+        playerKaGhar = document.querySelector(`.${player}kaghar`);
+        playerKaGhar.classList.remove("flashAnimate");
+      }
+
+      let currentPlayer = null;
+      function changeCurrentPlayer() {
+        if (currentPlayer == undefined) {
+          currentPlayer = "red";
+          return animate(currentPlayer);
+        }
+
+        const allPlayers = ["red", "green", "yellow", "blue"];
+        // check if there are at least two players left with tokensWon < 4
+        const playersRemaining = allPlayers.filter(
+          (player) => account[player].tokensWon.length < 4,
+        );
+
+        if (playersRemaining.length >= 2) {
+          console.log("Yes we can change players!");
+          removeFlashAnimation(currentPlayer);
+          newPlayersIndex =
+            (playersRemaining.indexOf(currentPlayer) + 1) %
+            playersRemaining.length;
+          currentPlayer = playersRemaining[newPlayersIndex];
+          animate(currentPlayer);
+        } else {
+          alert("Game Over!");
+        }
+      }
+      changeCurrentPlayer();
+      // ---------------
+
+      // Dice -----------------
+
+      let diceResult = null;
+      let canDiceRoll = true;
+
+      const dice = document.getElementById("dice");
+      dice.addEventListener("click", () => {
+        dice.src = "./images/dice/rolling_dice.gif";
+        setTimeout(() => {
+          diceResult = Math.floor(Math.random() * 6) + 1;
+          dice.src = `./images/dice/face${diceResult}.png`;
+          canDiceRoll = false;
+          // check if there is any token of the current player that can be moved further agr nhi hai to chage the player and make the dice roll
+
+          let moveAbleToken = false;
+          if (diceResult == 6) {
+            moveAbleToken = account[currentPlayer].tokens.some(
+              (el) => account[currentPlayer].tokensPos.get(el) == null,
+            );
+          } else {
+            moveAbleToken = account[currentPlayer].tokens.some((el) => {
+              let currentPos = account[currentPlayer].tokensPos[el];
+              if (currentPos + diceResult <= 56) return true;
+            });
+          }
+
+          if (!moveAbleToken) {
+            changeCurrentPlayer();
+            canDiceRoll = true;
+          }
+        }, 300);
+      });
+
+      // -----------------------
+
+      console.log(account);
+      const allTokens = allCells.forEach((cell) => {
+        cell.addEventListener("click", () => {
+          console.log(cell.getAttribute("cellNo"));
+
+          const tokenToMove = Array.from(cell.querySelectorAll("img")).find(
+            (token) => token.getAttribute("token") == currentPlayer,
+          );
+
+          const currentPos = account[currentPlayer].tokensPos.get(tokenToMove);
+          if (currentPos == null && diceResult == 6) {
+            const cellNo = account[currentPlayer].path[0];
+            const cellToMove = document.querySelector(
+              `div[cellNo="${cellNo}"]`
+            );
+
+            cellToMove.append(tokenToMove);
+            console.log(cellToMove,"idhar jana tha ")
+            console.log("Cell number ye tha: ", cellNo  )
+            console.log("selector: ", `div[cellNo="${cellNo}"]`)
+          }
+
+          console.log(currentPos);
+        });
+      });
+
+      // How to ensure if there is at least one token that can be moved by the current dice face ----- you have to ignore token won so each time a token is won you have to move it from the tokens property to the tokenswon property of the current player
+      /*
+        for all the tokens of the current player check their account.
+        if they are null and the dice is not 6 ignore
+
+        if they are not null then when we add the current dice result to the current token position and if they fall within the moveable path then the token can be moved
+
+        if there is a single token moveable just wait till the player plays his/her part
+
+      
+      */
+
+      // when a cell is clicked:
+      /*
+      
+        Look for any token of the current player that might be in the cell clicked. if there is one and can be moved just move it.
+
+        => a token can be moved if it's in the home spot and the dice result is 6 or it is in any cell and the dice result added to the currentcell index falls within the moveable path range of the current player
+
+        if not then just ignore
 
 
+      
+      */
+
+      // if the destination cell contains a single token of any other player not double then we have to move the token to the players home spots
+
+      // if the destination is winCell we will increment the number of tokens won by the current player in his account and in the changecurrent player function we will exlude the player if the numberOftokensWon is equalt to 4 thereby allowing only the players who have tokens to win to play
     </script>
   </body>
 </html>
